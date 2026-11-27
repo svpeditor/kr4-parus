@@ -131,7 +131,8 @@ function checkDate(value) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    if (new Date(value) < today) {
+    // Дату читаем как местную (с временем 00:00), иначе в некоторых часовых поясах день сдвигается
+    if (new Date(`${value}T00:00:00`) < today) {
         return 'Дата не может быть раньше сегодняшней.';
     }
 

@@ -41,32 +41,6 @@ const catalogState = {
     onlyAvailable: false
 };
 
-// Картинка: WebP с запасным JPG и два размера, 480px и 800px
-function createProductPicture(product, pictureClass, imageClass, sizes, isLazy) {
-    const picture = makeElement('picture', pictureClass);
-    const source = document.createElement('source');
-    const image = makeElement('img', imageClass);
-
-    source.type = 'image/webp';
-    source.srcset = `images/${product.image}-480.webp 480w, images/${product.image}.webp 800w`;
-    source.sizes = sizes;
-
-    image.src = `images/${product.image}.jpg`;
-    image.srcset = `images/${product.image}-480.jpg 480w, images/${product.image}.jpg 800w`;
-    image.sizes = sizes;
-    image.width = 800;
-    image.height = 600;
-    image.alt = product.imageAlt;
-
-    if (isLazy) {
-        image.loading = 'lazy';
-    }
-
-    picture.append(source, image);
-
-    return picture;
-}
-
 // Цена: если есть скидка, рядом зачёркнута старая цена
 function createProductPrice(product) {
     const price = makeElement('p', 'product-card__price');

@@ -12,6 +12,7 @@
     <script src="js/utils.js" defer></script>
     <script src="js/notify.js" defer></script>
     <script src="js/cart.js" defer></script>
+    <script src="js/fleet.js" defer></script>
     <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -56,164 +57,7 @@
 
         <section class="section" id="boats">
             <h2 class="section__title">Лодки и яхты</h2>
-            <div class="products-grid" id="fleet-list">
-                <article class="product-card" data-id="1" data-rent-capt="0" data-rent-free="0">
-                    <picture class="product-card__picture">
-                        <source type="image/webp" srcset="images/optimist-pair-480.webp 480w, images/optimist-pair.webp 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw">
-                        <img class="product-card__image" src="images/optimist-pair.jpg" srcset="images/optimist-pair-480.jpg 480w, images/optimist-pair.jpg 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw" width="800" height="600" alt="Две детские лодки с белыми парусами на спокойной воде" loading="lazy">
-                    </picture>
-                    <div class="product-card__body">
-                        <p class="product-card__category">Детская парусная лодка</p>
-                        <h3 class="product-card__title">Оптимист</h3>
-                        <p class="product-card__description">Лодка для детской группы. В аренду не сдаётся, на ней идут занятия.</p>
-                        <dl class="specs">
-                            <dt>Длина</dt>
-                            <dd>2,3 м</dd>
-                            <dt>Экипаж</dt>
-                            <dd>до 1 чел.</dd>
-                            <dt>Парус</dt>
-                            <dd>3,3 м²</dd>
-                        </dl>
-                        <p class="product-card__price">Только для занятий</p>
-                        <div class="product-card__actions">
-                            <div class="form__check">
-                                <input id="compare-1" name="compare" type="checkbox" value="1" data-compare>
-                                <label for="compare-1">Сравнить Оптимист</label>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                <article class="product-card" data-id="2" data-rent-capt="3500" data-rent-free="2500">
-                    <picture class="product-card__picture">
-                        <source type="image/webp" srcset="images/laser-480.webp 480w, images/laser.webp 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw">
-                        <img class="product-card__image" src="images/laser.jpg" srcset="images/laser-480.jpg 480w, images/laser.jpg 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw" width="800" height="600" alt="Спортсмен на одиночной лодке с красным парусом" loading="lazy">
-                    </picture>
-                    <div class="product-card__body">
-                        <p class="product-card__category">Одиночная спортивная лодка</p>
-                        <h3 class="product-card__title">Лазер</h3>
-                        <p class="product-card__description">Быстрая лодка для одного человека. Без инструктора сдаём после проверки навыков.</p>
-                        <dl class="specs">
-                            <dt>Длина</dt>
-                            <dd>4,2 м</dd>
-                            <dt>Экипаж</dt>
-                            <dd>до 1 чел.</dd>
-                            <dt>Парус</dt>
-                            <dd>7,1 м²</dd>
-                        </dl>
-                        <p class="product-card__price">Аренда от 2 500 руб. в день</p>
-                        <div class="product-card__actions">
-                            <div class="form__check">
-                                <input id="compare-2" name="compare" type="checkbox" value="2" data-compare>
-                                <label for="compare-2">Сравнить Лазер</label>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                <article class="product-card" data-id="3" data-rent-capt="4500" data-rent-free="3800">
-                    <picture class="product-card__picture">
-                        <source type="image/webp" srcset="images/regatta-fd-480.webp 480w, images/regatta-fd.webp 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw">
-                        <img class="product-card__image" src="images/regatta-fd.jpg" srcset="images/regatta-fd-480.jpg 480w, images/regatta-fd.jpg 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw" width="800" height="600" alt="Три гоночные лодки с белыми парусами идут по дистанции" loading="lazy">
-                    </picture>
-                    <div class="product-card__body">
-                        <p class="product-card__category">Гоночная лодка для двоих</p>
-                        <h3 class="product-card__title">Летучий голландец</h3>
-                        <p class="product-card__description">Лодка для экипажа из двух человек. На ней идут занятия регатной группы.</p>
-                        <dl class="specs">
-                            <dt>Длина</dt>
-                            <dd>6,05 м</dd>
-                            <dt>Экипаж</dt>
-                            <dd>до 2 чел.</dd>
-                            <dt>Парус</dt>
-                            <dd>около 16 м²</dd>
-                        </dl>
-                        <p class="product-card__price">Аренда от 3 800 руб. в день</p>
-                        <div class="product-card__actions">
-                            <div class="form__check">
-                                <input id="compare-3" name="compare" type="checkbox" value="3" data-compare>
-                                <label for="compare-3">Сравнить Летучий голландец</label>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                <article class="product-card" data-id="4" data-rent-capt="6500" data-rent-free="5000">
-                    <picture class="product-card__picture">
-                        <source type="image/webp" srcset="images/small-sloop-480.webp 480w, images/small-sloop.webp 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw">
-                        <img class="product-card__image" src="images/small-sloop.jpg" srcset="images/small-sloop-480.jpg 480w, images/small-sloop.jpg 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw" width="800" height="600" alt="Небольшая белая яхта на воде у берега" loading="lazy">
-                    </picture>
-                    <div class="product-card__body">
-                        <p class="product-card__category">Малая яхта</p>
-                        <h3 class="product-card__title">Ласточка</h3>
-                        <p class="product-card__description">Устойчивая яхта для первых выходов с семьёй или друзьями. Есть небольшая каюта.</p>
-                        <dl class="specs">
-                            <dt>Длина</dt>
-                            <dd>6,5 м</dd>
-                            <dt>Экипаж</dt>
-                            <dd>до 4 чел.</dd>
-                            <dt>Парус</dt>
-                            <dd>22 м²</dd>
-                        </dl>
-                        <p class="product-card__price">Аренда от 5 000 руб. в день</p>
-                        <div class="product-card__actions">
-                            <div class="form__check">
-                                <input id="compare-4" name="compare" type="checkbox" value="4" data-compare>
-                                <label for="compare-4">Сравнить Ласточка</label>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                <article class="product-card" data-id="5" data-rent-capt="12000" data-rent-free="9500">
-                    <picture class="product-card__picture">
-                        <source type="image/webp" srcset="images/cruiser-b-480.webp 480w, images/cruiser-b.webp 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw">
-                        <img class="product-card__image" src="images/cruiser-b.jpg" srcset="images/cruiser-b-480.jpg 480w, images/cruiser-b.jpg 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw" width="800" height="600" alt="Прогулочная яхта идёт под парусами" loading="lazy">
-                    </picture>
-                    <div class="product-card__body">
-                        <p class="product-card__category">Прогулочная яхта</p>
-                        <h3 class="product-card__title">Ветер</h3>
-                        <p class="product-card__description">Основная яхта клуба для выходов на день. Каюта, мотор, камбуз.</p>
-                        <dl class="specs">
-                            <dt>Длина</dt>
-                            <dd>9,5 м</dd>
-                            <dt>Экипаж</dt>
-                            <dd>до 6 чел.</dd>
-                            <dt>Парус</dt>
-                            <dd>48 м²</dd>
-                        </dl>
-                        <p class="product-card__price">Аренда от 9 500 руб. в день</p>
-                        <div class="product-card__actions">
-                            <div class="form__check">
-                                <input id="compare-5" name="compare" type="checkbox" value="5" data-compare>
-                                <label for="compare-5">Сравнить Ветер</label>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                <article class="product-card" data-id="6" data-rent-capt="16000" data-rent-free="13000">
-                    <picture class="product-card__picture">
-                        <source type="image/webp" srcset="images/racer-red-480.webp 480w, images/racer-red.webp 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw">
-                        <img class="product-card__image" src="images/racer-red.jpg" srcset="images/racer-red-480.jpg 480w, images/racer-red.jpg 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw" width="800" height="600" alt="Гоночная яхта с красным спинакером" loading="lazy">
-                    </picture>
-                    <div class="product-card__body">
-                        <p class="product-card__category">Гоночная яхта</p>
-                        <h3 class="product-card__title">Заря</h3>
-                        <p class="product-card__description">Быстрая яхта для регат. Без капитана сдаём только шкиперам клуба.</p>
-                        <dl class="specs">
-                            <dt>Длина</dt>
-                            <dd>11 м</dd>
-                            <dt>Экипаж</dt>
-                            <dd>до 8 чел.</dd>
-                            <dt>Парус</dt>
-                            <dd>70 м²</dd>
-                        </dl>
-                        <p class="product-card__price">Аренда от 13 000 руб. в день</p>
-                        <div class="product-card__actions">
-                            <div class="form__check">
-                                <input id="compare-6" name="compare" type="checkbox" value="6" data-compare>
-                                <label for="compare-6">Сравнить Заря</label>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
+            <div class="products-grid" id="fleet-list"></div>
         </section>
 
         <section class="section" id="rent">
@@ -225,38 +69,7 @@
                     <thead>
                         <tr><th scope="col">Лодка</th><th scope="col">С капитаном</th><th scope="col">Без капитана</th><th scope="col">Что нужно для аренды без капитана</th></tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">Лазер</th>
-                            <td>3 500 руб.</td>
-                            <td>2 500 руб.</td>
-                            <td>Проверка навыков на воде</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Летучий голландец</th>
-                            <td>4 500 руб.</td>
-                            <td>3 800 руб.</td>
-                            <td>Проверка навыков на воде</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Ласточка</th>
-                            <td>6 500 руб.</td>
-                            <td>5 000 руб.</td>
-                            <td>Опыт хода на яхте от 10 часов</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Ветер</th>
-                            <td>12 000 руб.</td>
-                            <td>9 500 руб.</td>
-                            <td>Удостоверение шкипера или экзамен в клубе</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Заря</th>
-                            <td>16 000 руб.</td>
-                            <td>13 000 руб.</td>
-                            <td>Только шкиперы клуба</td>
-                        </tr>
-                    </tbody>
+                    <tbody id="rent-body"></tbody>
                 </table>
             </div>
             <ul>
@@ -268,82 +81,14 @@
 
         <section class="section" id="compare">
             <h2 class="section__title">Сравнение яхт</h2>
-            <p class="section__text">Отметьте галочкой две или три лодки в списке выше и нажмите кнопку. Ниже стоит таблица со всеми лодками сразу.</p>
-            <form class="form" id="compare-form" action="fleet.html" method="get">
+            <p class="section__text">Отметьте галочкой две или три лодки в списке выше и нажмите кнопку. Ниже появится таблица с характеристиками, лучшие значения выделены.</p>
+            <form class="form" id="compare-form" novalidate>
                 <div class="form__actions">
                     <button class="button button--primary" type="submit">Сравнить выбранные</button>
                     <button class="button button--secondary" type="reset">Снять выбор</button>
                 </div>
                 <div class="form__result compare__result" id="compare-result" aria-live="polite"></div>
             </form>
-            <table class="info-table table--cards compare-table">
-                <caption id="compare-caption">Характеристики лодок, цена аренды за день</caption>
-                <thead>
-                    <tr><th scope="col">Лодка</th><th scope="col">Длина</th><th scope="col">Экипаж</th><th scope="col">Койки</th><th scope="col">Осадка</th><th scope="col">Парус</th><th scope="col">С капитаном</th><th scope="col">Без капитана</th></tr>
-                </thead>
-                <tbody>
-                    <tr data-id="1">
-                        <td data-label="Лодка"><strong>Оптимист</strong></td>
-                        <td data-label="Длина">2,3 м</td>
-                        <td data-label="Экипаж">до 1 чел.</td>
-                        <td data-label="Койки">нет</td>
-                        <td data-label="Осадка">до 0,7 м</td>
-                        <td data-label="Парус">3,3 м²</td>
-                        <td data-label="С капитаном">нет</td>
-                        <td data-label="Без капитана">нет</td>
-                    </tr>
-                    <tr data-id="2">
-                        <td data-label="Лодка"><strong>Лазер</strong></td>
-                        <td data-label="Длина">4,2 м</td>
-                        <td data-label="Экипаж">до 1 чел.</td>
-                        <td data-label="Койки">нет</td>
-                        <td data-label="Осадка">до 0,8 м</td>
-                        <td data-label="Парус">7,1 м²</td>
-                        <td data-label="С капитаном">3 500 руб.</td>
-                        <td data-label="Без капитана">2 500 руб.</td>
-                    </tr>
-                    <tr data-id="3">
-                        <td data-label="Лодка"><strong>Летучий голландец</strong></td>
-                        <td data-label="Длина">6,05 м</td>
-                        <td data-label="Экипаж">до 2 чел.</td>
-                        <td data-label="Койки">нет</td>
-                        <td data-label="Осадка">до 1,1 м</td>
-                        <td data-label="Парус">около 16 м²</td>
-                        <td data-label="С капитаном">4 500 руб.</td>
-                        <td data-label="Без капитана">3 800 руб.</td>
-                    </tr>
-                    <tr data-id="4">
-                        <td data-label="Лодка"><strong>Ласточка</strong></td>
-                        <td data-label="Длина">6,5 м</td>
-                        <td data-label="Экипаж">до 4 чел.</td>
-                        <td data-label="Койки">2</td>
-                        <td data-label="Осадка">1,1 м</td>
-                        <td data-label="Парус">22 м²</td>
-                        <td data-label="С капитаном">6 500 руб.</td>
-                        <td data-label="Без капитана">5 000 руб.</td>
-                    </tr>
-                    <tr data-id="5">
-                        <td data-label="Лодка"><strong>Ветер</strong></td>
-                        <td data-label="Длина">9,5 м</td>
-                        <td data-label="Экипаж">до 6 чел.</td>
-                        <td data-label="Койки">4</td>
-                        <td data-label="Осадка">1,6 м</td>
-                        <td data-label="Парус">48 м²</td>
-                        <td data-label="С капитаном">12 000 руб.</td>
-                        <td data-label="Без капитана">9 500 руб.</td>
-                    </tr>
-                    <tr data-id="6">
-                        <td data-label="Лодка"><strong>Заря</strong></td>
-                        <td data-label="Длина">11 м</td>
-                        <td data-label="Экипаж">до 8 чел.</td>
-                        <td data-label="Койки">4</td>
-                        <td data-label="Осадка">2,0 м</td>
-                        <td data-label="Парус">70 м²</td>
-                        <td data-label="С капитаном">16 000 руб.</td>
-                        <td data-label="Без капитана">13 000 руб.</td>
-                    </tr>
-                </tbody>
-            </table>
         </section>
     </main>
 
