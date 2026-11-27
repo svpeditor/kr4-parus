@@ -1,14 +1,7 @@
-// Практика 15. Подключение JavaScript.
-// Объект product создан в data.js, поэтому data.js подключён на страницах раньше main.js.
+// Практика 16. Массив товаров, поиск, фильтрация, сортировка и расчёты.
+// Массив products создан в data.js, поэтому data.js подключён на страницах раньше main.js.
 console.log('Файл main.js подключён');
-console.log(product);
-console.table(product);
-
-// Типы данных: строка, число, логическое значение, объект
-console.log(typeof product.title);
-console.log(typeof product.price);
-console.log(typeof product.isAvailable);
-console.log(typeof product);
+console.table(products);
 
 // Цена в виде строки, например "12900 руб."
 function formatPrice(price) {
@@ -43,33 +36,111 @@ function createProductSummary(product) {
     return `${product.title}: ${formatPrice(finalPrice)} Статус: ${status}.`;
 }
 
-console.log(formatPrice(product.price));
+// Названия всех курсов
+function getProductTitles(products) {
+    return products.map((product) => product.title);
+}
 
-const discountValue = calculateDiscount(product.price, product.discountPercent);
-console.log(discountValue);
+// Курсы с открытым набором
+function getAvailableProducts(products) {
+    return products.filter((product) => product.isAvailable);
+}
 
-const finalPrice = calculateFinalPrice(product.price, product.discountPercent);
-console.log(finalPrice);
+// Поиск по названию: пробелы по краям убираем, регистр не важен
+function searchProducts(products, query) {
+    const normalizedQuery = query.trim().toLowerCase();
 
-console.log(getProductStatus(product));
+    if (normalizedQuery === '') {
+        return products;
+    }
 
-// Арифметические операторы: цена на двоих и цена одного занятия из четырёх
-console.log(formatPrice(finalPrice * 2));
-console.log(formatPrice(finalPrice / 4));
+    return products.filter((product) => {
+        return product.title.toLowerCase().includes(normalizedQuery);
+    });
+}
 
-// Операторы сравнения
-console.log(product.price > 10000);
-console.log(product.price === 12900);
-console.log(product.price !== 0);
+// Фильтр по категории, значение all показывает все курсы
+function filterProductsByCategory(products, category) {
+    if (category === 'all') {
+        return products;
+    }
 
-// Логические операторы
-const hasDiscount = product.discountPercent > 0;
-const canBook = product.price > 0 && product.isAvailable;
-const needsCheck = !product.isAvailable || product.rating < 4;
-console.log(`Есть скидка: ${hasDiscount}, можно записаться: ${canBook}, нужна проверка: ${needsCheck}`);
+    return products.filter((product) => {
+        return product.category === category;
+    });
+}
 
-const productSummary = createProductSummary(product);
-console.log(productSummary);
+// Сортировка по цене. Сортируем копию массива, чтобы не менять исходный порядок.
+function sortProductsByPrice(products, direction = 'asc') {
+    const productsCopy = [...products];
+
+    if (direction === 'desc') {
+        return productsCopy.sort((a, b) => b.price - a.price);
+    }
+
+    return productsCopy.sort((a, b) => a.price - b.price);
+}
+
+// Поиск курса по id. Если курса нет, find вернёт undefined.
+function findProductById(products, id) {
+    return products.find((product) => product.id === id);
+}
+
+// Сумма цен всех курсов из списка
+function calculateTotalPrice(products) {
+    return products.reduce((sum, product) => {
+        return sum + product.price;
+    }, 0);
+}
+
+function countAvailableProducts(products) {
+    return products.filter((product) => product.isAvailable).length;
+}
+
+function calculateAveragePrice(products) {
+    if (products.length === 0) {
+        return 0;
+    }
+
+    const totalPrice = calculateTotalPrice(products);
+
+    return Math.round(totalPrice / products.length);
+}
+
+// Поиск, фильтр и сортировка вместе
+function getPreparedProducts(products, query, category, sortDirection) {
+    let result = [...products];
+
+    result = searchProducts(result, query);
+    result = filterProductsByCategory(result, category);
+    result = sortProductsByPrice(result, sortDirection);
+
+    return result;
+}
+
+// Проверка функций в консоли
+const firstProduct = products[0];
+
+console.log(createProductSummary(firstProduct));
+console.log(getProductTitles(products));
+console.table(getAvailableProducts(products));
+console.table(searchProducts(products, 'шкипер'));
+console.table(filterProductsByCategory(products, 'kids'));
+console.table(sortProductsByPrice(products, 'asc'));
+console.table(sortProductsByPrice(products, 'desc'));
+
+const selectedProduct = findProductById(products, 3);
+
+if (selectedProduct) {
+    console.log(`Найден курс: ${selectedProduct.title}`);
+} else {
+    console.log('Курс не найден');
+}
+
+console.log(calculateTotalPrice(products));
+console.log(countAvailableProducts(products));
+console.log(calculateAveragePrice(products));
+console.table(getPreparedProducts(products, 'ш', 'skipper', 'asc'));
 
 // Вывод на страницу через textContent. Блок "Проверка JavaScript" есть только
 // на главной, на других страницах элементов нет, поэтому сначала проверяем их.
@@ -77,11 +148,16 @@ const messageElement = document.querySelector('.js-message');
 const productOutputElement = document.querySelector('.product-output');
 
 if (messageElement) {
-    messageElement.textContent = 'JavaScript подключён корректно.';
+    messageElement.textContent = 'Массив курсов и функции обработки данных подключены.';
 }
 
 if (productOutputElement) {
-    productOutputElement.textContent = productSummary;
+    productOutputElement.textContent = [
+        `Всего курсов: ${products.length}`,
+        `Курсов с открытым набором: ${countAvailableProducts(products)}`,
+        `Средняя цена: ${calculateAveragePrice(products)} руб.`,
+        `Результатов поиска "шкипер": ${searchProducts(products, 'шкипер').length}`
+    ].join('\n');
 }
 
 // Дальше код из КР №3: модальное окно, меню и фильтры каталога
