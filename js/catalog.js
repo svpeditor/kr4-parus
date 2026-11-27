@@ -124,7 +124,8 @@ function createProductCard(product, sizes, isLazy) {
         const button = makeElement('button', 'button button--primary button--small', 'В мои записи');
         button.type = 'button';
         button.dataset.action = 'add-to-cart';
-        button.dataset.productId = String(product.id);
+        button.dataset.kind = 'course';
+        button.dataset.itemId = String(product.id);
         actions.append(button);
     } else {
         const waitLink = makeElement('a', 'button button--secondary button--small', 'В лист ожидания');
@@ -229,7 +230,8 @@ function fillCoursePage(product) {
         const cartButton = makeElement('button', 'button button--secondary', 'В мои записи');
         cartButton.type = 'button';
         cartButton.dataset.action = 'add-to-cart';
-        cartButton.dataset.productId = String(product.id);
+        cartButton.dataset.kind = 'course';
+        cartButton.dataset.itemId = String(product.id);
         actions.append(orderLink, cartButton);
     } else {
         const waitLink = makeElement('a', 'button button--secondary', 'В лист ожидания');

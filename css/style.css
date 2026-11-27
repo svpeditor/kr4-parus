@@ -720,10 +720,113 @@ display: none не используем, иначе до неё нельзя д�
     color: var(--color-danger);
 }
 
+/* Недоступные поля (например, дни аренды для курса) выглядят серыми */
+.form__input:disabled,
+.form__select:disabled,
+.form__textarea:disabled {
+    color: var(--color-muted);
+    background-color: var(--color-surface);
+    cursor: not-allowed;
+}
+
+.form__check input:disabled + label {
+    color: var(--color-muted);
+}
+
 /* Поле с ошибкой выделяется рамкой и текстом сообщения под полем */
 .form__input[aria-invalid="true"],
 .form__select[aria-invalid="true"],
 .form__textarea[aria-invalid="true"] {
     border-color: var(--color-danger);
     border-width: 2px;
+}
+
+/* ===============================
+13. Всплывающие уведомления
+=============================== */
+
+.toasts {
+    position: fixed;
+    right: var(--space-md);
+    bottom: var(--space-md);
+    z-index: 2000;
+    display: grid;
+    gap: var(--space-sm);
+    width: min(100% - 32px, 380px);
+}
+
+.toast {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    padding: 12px var(--space-md);
+    color: var(--color-text);
+    background-color: var(--color-white);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-md);
+}
+
+.toast--success {
+    border-color: var(--color-success);
+}
+
+.toast--error {
+    border-color: var(--color-danger);
+}
+
+.toast--warning {
+    border-color: var(--color-warning);
+}
+
+.toast__title {
+    flex: none;
+}
+
+.toast--success .toast__title {
+    color: var(--color-success);
+}
+
+.toast--error .toast__title {
+    color: var(--color-danger);
+}
+
+.toast--warning .toast__title {
+    color: var(--color-warning);
+}
+
+.toast--info .toast__title {
+    color: var(--color-primary);
+}
+
+.toast__text {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.toast__close {
+    flex: none;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    font: inherit;
+    font-size: 20px;
+    line-height: 1;
+    color: var(--color-text);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-field);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}
+
+/* Итоговая сумма в форме заявки */
+.order-summary {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Блок результата запроса статуса: пока пустой, не показываем рамку */
+.status:empty {
+    display: none;
 }

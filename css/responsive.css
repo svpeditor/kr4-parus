@@ -590,7 +590,18 @@ minmax(0, 1fr) не даёт длинному слову растянуть ко
 640px: большие телефоны и небольшие планшеты
 =============================== */
 
+/* Кнопка закрытия уведомления: на телефоне не меньше 44px */
+.toast__close {
+    width: 44px;
+    height: 44px;
+}
+
 @media (min-width: 640px) {
+    .toast__close {
+        width: 32px;
+        height: 32px;
+    }
+
     .products-grid,
     .facts,
     .contacts-grid,

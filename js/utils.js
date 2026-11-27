@@ -167,3 +167,19 @@ function readStorage(key, fallback) {
 function writeStorage(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
 }
+
+// Дата и время выхода для таблиц и корзины, например "сб, 5 июня, 10:00"
+const weekdayNames = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
+const monthNames = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+
+function formatOutingDate(outing) {
+    const [year, month, day] = outing.date.split('-').map(Number);
+    const date = new Date(year, month - 1, day);
+
+    return `${weekdayNames[date.getDay()]}, ${day} ${monthNames[month - 1]}, ${outing.time}`;
+}
+
+// Размеры лодок: 6.5 превращаем в "6,5 м"
+function formatMeters(value) {
+    return `${String(value).replace('.', ',')} м`;
+}
