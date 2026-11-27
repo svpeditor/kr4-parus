@@ -351,6 +351,14 @@ button--primary (основная) или button--secondary (второстеп�
     font-weight: bold;
 }
 
+/* Старая цена до скидки */
+.product-card__old-price {
+    margin-right: var(--space-xs);
+    font-size: 15px;
+    font-weight: normal;
+    color: var(--color-muted);
+}
+
 .review {
     margin: 0;
     padding: var(--space-md);
@@ -411,7 +419,8 @@ button--primary (основная) или button--secondary (второстеп�
     font-size: 18px;
 }
 
-.catalog-count {
+.catalog-count,
+.cart-counter {
     font-weight: bold;
 }
 
@@ -501,6 +510,13 @@ button--primary (основная) или button--secondary (второстеп�
     background-color: var(--color-surface-accent);
     border: 1px solid var(--color-primary);
     border-radius: var(--radius-md);
+}
+
+/* Сообщение формы с ошибкой: красная рамка и текст вместо синей рамки */
+.form__result--error {
+    color: var(--color-danger);
+    background-color: var(--color-white);
+    border-color: var(--color-danger);
 }
 
 /* ===============================
