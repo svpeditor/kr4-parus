@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
     <script src="js/data.js" defer></script>
+    <script src="js/utils.js" defer></script>
+    <script src="js/validation.js" defer></script>
     <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -40,7 +42,7 @@
 
         <div class="order">
             <div class="order__main">
-                <form class="form" id="order-form" action="account.html" method="get">
+                <form class="form" id="order-form" novalidate>
                     <p class="form__note">Поля, отмеченные звёздочкой, обязательны для заполнения.</p>
                     <fieldset class="form__fieldset">
                         <legend class="form__legend">Что вы выбираете</legend>
@@ -48,6 +50,7 @@
                             <div class="form__group">
                                 <label class="form__label" for="order-item">Курс, выход или аренда <span class="form__required" aria-hidden="true">*</span></label>
                                 <select class="form__select" id="order-item" name="item" required aria-describedby="order-item-error">
+                                    <option value="">Выберите из списка</option>
                                     <optgroup label="Курсы">
                                         <option value="course-1">Азы парусного спорта, 12 900 руб.</option>
                                         <option value="course-2">Интенсив на выходные, 8 500 руб.</option>
@@ -128,8 +131,8 @@
                                 </div>
                             </div>
                             <div class="form__group">
-                                <label class="form__label" for="order-email">E-mail</label>
-                                <input class="form__input" id="order-email" name="email" type="email" autocomplete="email" aria-describedby="order-email-error">
+                                <label class="form__label" for="order-email">E-mail <span class="form__required" aria-hidden="true">*</span></label>
+                                <input class="form__input" id="order-email" name="email" type="email" required autocomplete="email" aria-describedby="order-email-error">
                                 <p class="form__error" id="order-email-error"></p>
                             </div>
                             <div class="form__group">
@@ -323,7 +326,7 @@
                 <p class="site-footer__text">E-mail: <a href="mailto:info@parus-club.example">info@parus-club.example</a></p>
             </div>
         </div>
-        <p class="site-footer__copy">Учебный проект, сайт вымышленной школы. Контрольная работа №3, группа ЭФБО-07-25. Фотографии со Wikimedia Commons, авторы и лицензии указаны в README репозитория.</p>
+        <p class="site-footer__copy">Учебный проект, сайт вымышленной школы. Контрольная работа №4, группа ЭФБО-07-25. Фотографии со Wikimedia Commons, авторы и лицензии указаны в README репозитория.</p>
     </footer>
 </body>
 </html>
