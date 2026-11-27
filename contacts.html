@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Адрес, телефон, карта и частые вопросы парусной школы Парус.">
+    <title>Контакты | Парус</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <a class="skip-link" href="#main">Перейти к основному содержимому</a>
+
+    <header class="site-header" id="top">
+        <div class="site-header__inner">
+            <a class="site-header__logo" href="index.html">Парус</a>
+
+            <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="site-nav">Меню</button>
+
+            <nav class="site-nav" id="site-nav" aria-label="Основная навигация">
+                <ul class="site-nav__list">
+                    <li class="site-nav__item"><a class="site-nav__link" href="index.html">Главная</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link" href="courses.html">Курсы</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link" href="fleet.html">Флот</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link" href="schedule.html">Расписание</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link" href="order.html">Заявка</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link" href="account.html">Личный кабинет</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link site-nav__link--active" href="contacts.html" aria-current="page">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main" class="main" tabindex="-1">
+        <h1>Контакты</h1>
+        <section class="section" id="info">
+            <div class="contacts-grid">
+                <div class="contact-card">
+                    <h2 class="contact-card__title">Адрес</h2>
+                    <p class="contact-card__text">Московская область, Мытищи, пос. Пирогово, Береговая ул., 7</p>
+                </div>
+                <div class="contact-card">
+                    <h2 class="contact-card__title">Телефон</h2>
+                    <p class="contact-card__text"><a href="tel:+79997654321">+7 (999) 765-43-21</a></p>
+                </div>
+                <div class="contact-card">
+                    <h2 class="contact-card__title">E-mail</h2>
+                    <p class="contact-card__text"><a href="mailto:info@parus-club.example">info@parus-club.example</a></p>
+                </div>
+                <div class="contact-card">
+                    <h2 class="contact-card__title">Часы работы</h2>
+                    <p class="contact-card__text">Ежедневно с 9:00 до 20:00, с мая по октябрь</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="place">
+            <div class="split">
+                <div class="split__text">
+                    <h2 class="section__title">Где мы стоим</h2>
+                    <p>Клуб находится на берегу Клязьминского водохранилища, в получасе езды от Москвы. Стоянка яхт и клубный дом стоят у самой воды, парковка рядом.</p>
+                    <p>Приезжайте за 20 минут до начала занятия, чтобы переодеться и получить жилет.</p>
+                </div>
+                <picture class="split__picture">
+                    <source type="image/webp" srcset="images/klyazma-sunset-480.webp 480w, images/klyazma-sunset.webp 800w" sizes="(min-width: 768px) 520px, 100vw">
+                    <img class="split__image" src="images/klyazma-sunset.jpg" srcset="images/klyazma-sunset-480.jpg 480w, images/klyazma-sunset.jpg 800w" sizes="(min-width: 768px) 520px, 100vw" width="800" height="600" alt="Закат над водой, вдали лесистый берег" loading="lazy">
+                </picture>
+            </div>
+        </section>
+
+        <section class="section" id="map">
+            <h2 class="section__title">Как нас найти</h2>
+            <div class="map">
+                <iframe title="Карта Яндекса: яхт-клуб Парус на берегу Клязьминского водохранилища" src="https://yandex.ru/map-widget/v1/?ll=37.715000%2C55.972000&amp;z=13&amp;pt=37.715000%2C55.972000%2Cpm2blm" loading="lazy"></iframe>
+            </div>
+        </section>
+
+        <section class="section" id="question">
+            <h2 class="section__title">Вопрос инструктору</h2>
+            <form class="form" id="question-form" action="contacts.html" method="get">
+                <p class="form__note">Поля, отмеченные звёздочкой, обязательны для заполнения.</p>
+                <div class="form__row">
+                    <div class="form__group">
+                        <label class="form__label" for="question-name">Имя <span class="form__required" aria-hidden="true">*</span></label>
+                        <input class="form__input" id="question-name" name="name" type="text" required autocomplete="name" aria-describedby="question-name-error">
+                        <p class="form__error" id="question-name-error"></p>
+                    </div>
+                    <div class="form__group">
+                        <label class="form__label" for="question-email">E-mail <span class="form__required" aria-hidden="true">*</span></label>
+                        <input class="form__input" id="question-email" name="email" type="email" required autocomplete="email" aria-describedby="question-email-error">
+                        <p class="form__error" id="question-email-error"></p>
+                    </div>
+                </div>
+                <div class="form__group">
+                    <label class="form__label" for="question-topic">Тема вопроса</label>
+                    <select class="form__select" id="question-topic" name="topic" aria-describedby="question-topic-error">
+                        <option value="courses">Курсы и обучение</option>
+                        <option value="rent">Аренда яхт</option>
+                        <option value="kids">Детская группа</option>
+                        <option value="other">Другое</option>
+                    </select>
+                    <p class="form__error" id="question-topic-error"></p>
+                </div>
+                <div class="form__group">
+                    <label class="form__label" for="question-text">Ваш вопрос <span class="form__required" aria-hidden="true">*</span></label>
+                    <textarea class="form__textarea" id="question-text" name="text" rows="5" required aria-describedby="question-text-error"></textarea>
+                    <p class="form__error" id="question-text-error"></p>
+                </div>
+                <div class="form__actions">
+                    <button class="button button--primary" type="submit">Отправить вопрос</button>
+                </div>
+                <div class="form__result" id="question-result" aria-live="polite"></div>
+            </form>
+        </section>
+
+        <section class="section" id="faq">
+            <h2 class="section__title">Частые вопросы</h2>
+            <div class="faq">
+                <details class="faq__item">
+                    <summary class="faq__question">Нужно ли уметь плавать?</summary>
+                    <p class="faq__answer">Плавать лучше уметь, но на воде все ходят в спасательных жилетах. Перед первым занятием инструктор проверяет, как вы держитесь на воде.</p>
+                </details>
+                <details class="faq__item">
+                    <summary class="faq__question">Что взять с собой на занятие?</summary>
+                    <p class="faq__answer">Сменную одежду, кроссовки или обувь, которая не скользит, головной убор и крем от солнца. Жилеты и куртки от ветра выдаём в клубе.</p>
+                </details>
+                <details class="faq__item">
+                    <summary class="faq__question">С какого возраста принимаете детей?</summary>
+                    <p class="faq__answer">В детскую группу берём с 7 лет. Ребёнок должен уметь держаться на воде и приходить с разрешением от родителей.</p>
+                </details>
+                <details class="faq__item">
+                    <summary class="faq__question">Что если будет плохая погода?</summary>
+                    <p class="faq__answer">При сильном ветре или грозе выход переносим. Занятие не пропадает, мы переносим его на другой день или возвращаем деньги.</p>
+                </details>
+                <details class="faq__item">
+                    <summary class="faq__question">Можно ли получить права на управление лодкой?</summary>
+                    <p class="faq__answer">Курс шкипера готовит к экзамену. Сам экзамен на право управления маломерным судном сдаётся в государственной инспекции, мы помогаем с подготовкой.</p>
+                </details>
+                <details class="faq__item">
+                    <summary class="faq__question">Как добраться до клуба?</summary>
+                    <p class="faq__answer">От станции ехать на автобусе до остановки у водохранилища, дальше пешком по Береговой улице около десяти минут. На машине есть бесплатная парковка.</p>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <div class="site-footer__col">
+                <h2 class="site-footer__title">Парус</h2>
+                <p class="site-footer__text">Парусная школа и яхт-клуб на Клязьминском водохранилище. Работаем с мая по октябрь.</p>
+            </div>
+            <div class="site-footer__col">
+                <h2 class="site-footer__title">Страницы</h2>
+                <ul class="site-footer__list">
+                    <li class="site-footer__item"><a href="index.html">Главная</a></li>
+                    <li class="site-footer__item"><a href="courses.html">Курсы</a></li>
+                    <li class="site-footer__item"><a href="fleet.html">Флот</a></li>
+                    <li class="site-footer__item"><a href="schedule.html">Расписание</a></li>
+                    <li class="site-footer__item"><a href="order.html">Заявка</a></li>
+                    <li class="site-footer__item"><a href="account.html">Личный кабинет</a></li>
+                    <li class="site-footer__item"><a href="contacts.html">Контакты</a></li>
+                </ul>
+            </div>
+            <div class="site-footer__col">
+                <h2 class="site-footer__title">Контакты</h2>
+                <p class="site-footer__text">Московская область, Мытищи, пос. Пирогово, Береговая ул., 7</p>
+                <p class="site-footer__text">Телефон: <a href="tel:+79997654321">+7 (999) 765-43-21</a></p>
+                <p class="site-footer__text">E-mail: <a href="mailto:info@parus-club.example">info@parus-club.example</a></p>
+            </div>
+        </div>
+        <p class="site-footer__copy">Учебный проект, сайт вымышленной школы. Контрольная работа №3, группа ЭФБО-07-25. Фотографии со Wikimedia Commons, авторы и лицензии указаны в README репозитория.</p>
+    </footer>
+</body>
+</html>

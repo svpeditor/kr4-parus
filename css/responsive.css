@@ -1,0 +1,841 @@
+/*
+  Адаптивные стили для контрольной работы №3.
+  Подход: Mobile First.
+  Базовые стили рассчитаны на мобильный экран.
+  Расширения добавляются через min-width медиазапросы.
+*/
+
+/*
+Точки перелома выбраны там, где содержимому становится тесно
+или, наоборот, появляется место, а не под конкретные модели телефонов:
+
+640px  - карточки в две колонки, подвал в две колонки, поля формы по два в строке,
+         таблицы-карточки по две в ряд;
+768px  - фото рядом с текстом, шапка прилипает к верху окна, блоки с отступами побольше;
+900px  - таблицы-карточки снова обычные таблицы, главный блок в две колонки,
+         отзывы и преподаватели в три колонки;
+1024px - меню в одну строку вместо кнопки, фильтры каталога слева,
+         заявка и калькулятор рядом, карточки в три колонки;
+1200px - в каталоге с фильтрами три карточки в ряд.
+
+Проверенные ширины: 360px, 430px, 768px, 1024px, 1440px.
+*/
+
+/* ===============================
+Базовый каркас
+=============================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/*
+Картинки и видео не выходят за пределы своего блока.
+height: auto сохраняет пропорции.
+*/
+img,
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+picture {
+    display: block;
+}
+
+/*
+Защита от горизонтального скролла всей страницы.
+Причины переполнения исправлены в раскладке (таблицы лежат в обёртке,
+сетки используют minmax(0, 1fr)), правило оставлено на всякий случай.
+*/
+body {
+    overflow-x: hidden;
+}
+
+/*
+Контейнер: почти вся ширина экрана, но не больше 1100px.
+Отступы по бокам задаёт сама ширина (100% - 32px).
+*/
+.main,
+.site-header__inner,
+.site-footer__inner,
+.site-footer__copy {
+    width: min(100% - 32px, var(--container-width));
+    margin-inline: auto;
+}
+
+.main {
+    padding-block: var(--space-lg) var(--space-sm);
+}
+
+/* ===============================
+Шапка и меню (телефон)
+=============================== */
+
+/*
+На телефоне в шапке логотип слева и кнопка "Меню" справа.
+flex-wrap нужен, чтобы открытое меню переносилось на новую строку.
+*/
+.site-header__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding-block: var(--space-sm);
+}
+
+.site-header__logo {
+    flex-shrink: 0;
+}
+
+.site-header__toggle {
+    min-height: 44px;
+    padding: var(--space-sm) var(--space-md);
+    font: inherit;
+    color: var(--color-primary);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}
+
+.site-header__toggle:hover {
+    background-color: var(--color-surface-accent);
+}
+
+/*
+Меню скрыто, пока не нажата кнопка "Меню".
+Класс site-nav--open добавляется в js/main.js.
+*/
+.site-nav {
+    display: none;
+    flex-basis: 100%;
+}
+
+.site-nav--open {
+    display: block;
+}
+
+/* На телефоне пункты меню идут в колонку */
+.site-nav__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding-bottom: var(--space-sm);
+}
+
+/* display: block делает кликабельным весь пункт, padding увеличивает зону нажатия */
+.site-nav__link {
+    display: block;
+    padding: 12px var(--space-md);
+}
+
+/* ===============================
+Главный блок
+=============================== */
+
+.hero {
+    display: grid;
+    gap: var(--space-lg);
+    align-items: center;
+    margin-bottom: var(--space-xl);
+}
+
+.hero__content {
+    min-width: 0;
+}
+
+.hero__title {
+    font-size: clamp(26px, 7vw, 40px);
+    line-height: 1.15;
+}
+
+.hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm) var(--space-md);
+}
+
+.hero__actions .button {
+    flex: 1 1 200px;
+    min-height: 44px;
+    padding-block: 10px;
+}
+
+.hero__picture {
+    display: block;
+}
+
+.hero__image {
+    width: 100%;
+    margin-inline: auto;
+}
+
+/* ===============================
+Блоки с карточками (Grid)
+=============================== */
+
+/* Заголовок раздела и ссылка рядом с ним в одной строке */
+.section__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-xs) var(--space-md);
+}
+
+.facts,
+.reviews,
+.instructors,
+.contacts-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-md);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/*
+Сетка карточек: одна колонка на телефоне.
+minmax(0, 1fr) не даёт длинному слову растянуть колонку.
+*/
+.products-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-md);
+    margin: 0 0 var(--space-lg);
+    padding: 0;
+    list-style: none;
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.product-card__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.product-card__title,
+.product-card__description {
+    overflow-wrap: anywhere;
+}
+
+.product-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: auto;
+}
+
+.product-card__actions .button {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+}
+
+.review,
+.instructor,
+.contact-card {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+/* ===============================
+Таблицы
+=============================== */
+
+/*
+Широкая таблица лежит в обёртке с горизонтальной прокруткой,
+вся страница при этом не прокручивается вбок.
+*/
+.table-wrapper {
+    width: 100%;
+    margin-bottom: var(--space-md);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.info-table {
+    width: 100%;
+}
+
+.table-wrapper .info-table {
+    min-width: 640px;
+}
+
+/*
+Таблица-карточки (самостоятельная доработка).
+На телефоне каждая строка таблицы выглядит отдельной карточкой,
+название столбца берётся из атрибута data-label у ячейки.
+Заголовок таблицы прячется визуально, но остаётся для программ чтения с экрана.
+*/
+.table--cards {
+    display: block;
+    width: 100%;
+    margin-bottom: var(--space-md);
+}
+
+.table--cards caption {
+    display: block;
+}
+
+.table--cards thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+.table--cards tbody {
+    display: block;
+}
+
+.table--cards tr {
+    display: block;
+    margin-bottom: var(--space-md);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+.table--cards td,
+.table--cards tbody th {
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+    justify-content: space-between;
+    min-width: 0;
+    text-align: right;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.table--cards tr > :last-child {
+    border-bottom: 0;
+}
+
+.table--cards td::before {
+    flex: 0 0 38%;
+    font-weight: bold;
+    text-align: left;
+    content: attr(data-label);
+}
+
+.table--cards .form__input {
+    width: 90px;
+}
+
+/* Ячейка с кнопкой: без подписи, кнопка на всю ширину карточки */
+.table--cards .info-table__action::before {
+    display: none;
+}
+
+.table--cards .info-table__action .button {
+    flex: 1;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===============================
+Формы
+=============================== */
+
+.form {
+    display: grid;
+    gap: var(--space-md);
+}
+
+.form__group {
+    display: grid;
+    align-content: start;
+    gap: var(--space-xs);
+    min-width: 0;
+}
+
+.form__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: var(--space-md);
+}
+
+.form h3 {
+    margin: 0;
+}
+
+/* Поля не меньше 44px по высоте, чтобы в них было удобно попасть пальцем */
+.form__input,
+.form__select,
+.form__textarea {
+    width: 100%;
+    min-height: 44px;
+}
+
+.form__textarea {
+    min-height: 120px;
+}
+
+.form__fieldset {
+    min-width: 0;
+}
+
+.form__check {
+    align-items: center;
+    min-height: 44px;
+}
+
+.form__check input {
+    flex: none;
+    width: 22px;
+    height: 22px;
+}
+
+.form__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm) var(--space-md);
+}
+
+.form__actions .button {
+    flex: 1 1 160px;
+    min-height: 44px;
+}
+
+/* ===============================
+Каталог и фильтры
+=============================== */
+
+.catalog-layout {
+    display: grid;
+    gap: var(--space-lg);
+}
+
+.catalog-layout__products {
+    min-width: 0;
+}
+
+/*
+На телефоне и планшете фильтры над карточками и свёрнуты в кнопку.
+Открывает их js/main.js (класс catalog-filters--open).
+*/
+.catalog-filters__toggle {
+    width: 100%;
+    min-height: 44px;
+    padding: var(--space-sm) var(--space-md);
+    font: inherit;
+    color: var(--color-primary);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}
+
+.catalog-filters__form {
+    display: none;
+    margin-top: var(--space-md);
+}
+
+.catalog-filters--open .catalog-filters__form {
+    display: grid;
+}
+
+.catalog-filters__title {
+    display: none;
+}
+
+/* ===============================
+Модальное окно
+=============================== */
+
+/*
+Окно не шире экрана минус 32px и прокручивается внутри,
+если форма не помещается по высоте.
+*/
+.modal {
+    width: min(100% - 32px, 560px);
+    max-height: calc(100vh - 32px);
+    overflow: auto;
+}
+
+.modal__head {
+    display: flex;
+    gap: var(--space-md);
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.modal__close {
+    flex: none;
+    width: 44px;
+    height: 44px;
+}
+
+/* ===============================
+Страницы курса, флота, заявки, кабинета, контактов
+=============================== */
+
+/*
+Блок "текст и фото". На телефоне фото и текст друг под другом,
+с 768px текст и фото стоят рядом (две колонки Grid).
+*/
+.split {
+    display: grid;
+    gap: var(--space-lg);
+}
+
+.split__picture,
+.split__text {
+    display: block;
+    min-width: 0;
+}
+
+.split + .facts {
+    margin-top: var(--space-lg);
+}
+
+.split__image {
+    width: 100%;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+/* Определения "название - значение" в две колонки */
+.course__facts,
+.specs {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: var(--space-xs) var(--space-md);
+}
+
+.course__facts dd,
+.specs dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+.order,
+.auth {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-lg);
+}
+
+.order__main,
+.order__aside {
+    display: grid;
+    gap: var(--space-lg);
+    min-width: 0;
+}
+
+.compare__result {
+    margin-bottom: var(--space-md);
+}
+
+.faq {
+    display: grid;
+    gap: var(--space-sm);
+}
+
+/* Карта Яндекса: пропорции задаёт aspect-ratio, ширина не больше экрана */
+.map {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+}
+
+.map iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* ===============================
+Подвал
+=============================== */
+
+.site-footer__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-md);
+    padding-block: var(--space-lg);
+}
+
+/* ===============================
+640px: большие телефоны и небольшие планшеты
+=============================== */
+
+@media (min-width: 640px) {
+    .products-grid,
+    .facts,
+    .contacts-grid,
+    .site-footer__inner,
+    .form__row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .map {
+        aspect-ratio: 16 / 9;
+    }
+
+    /* Карточки вместо строк таблицы встают по две в ряд */
+    .table--cards tbody {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-md);
+    }
+
+    .table--cards tr {
+        margin-bottom: 0;
+    }
+}
+
+/* ===============================
+768px: планшет
+=============================== */
+
+@media (min-width: 768px) {
+    .main {
+        padding-block: var(--space-xl) var(--space-md);
+    }
+
+    /* Шапка прилипает к верху окна, якоря не прячутся под ней */
+    html {
+        scroll-padding-top: calc(var(--header-height) + var(--space-md));
+    }
+
+    .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .table--cards .form__input {
+        width: 80px;
+    }
+
+    .split {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+    }
+
+    .auth {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+    }
+
+    .calc,
+    .aside-box,
+    .quiz,
+    .auth__box,
+    .status {
+        padding: var(--space-lg);
+    }
+}
+
+/* ===============================
+900px: небольшой ноутбук
+=============================== */
+
+@media (min-width: 900px) {
+    /*
+    Места хватает, поэтому таблицы-карточки снова показываются
+    обычными таблицами: возвращаем табличные значения display.
+    */
+    .table--cards {
+        display: table;
+    }
+
+    .table--cards caption {
+        display: table-caption;
+    }
+
+    .table--cards thead {
+        position: static;
+        display: table-header-group;
+        width: auto;
+        height: auto;
+        overflow: visible;
+        clip: auto;
+        white-space: normal;
+    }
+
+    .table--cards tbody {
+        display: table-row-group;
+    }
+
+    .table--cards tr {
+        display: table-row;
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+    }
+
+    .table--cards td,
+    .table--cards tbody th {
+        display: table-cell;
+        text-align: left;
+        border: 1px solid var(--color-border);
+    }
+
+    .table--cards td::before {
+        content: none;
+    }
+
+    .table--cards .info-table__action .button {
+        flex: none;
+        display: inline-block;
+        min-height: 0;
+    }
+
+    /*
+    Текст слева, фото справа. Колонка с фото от 320px до 440px,
+    текст занимает остальное место.
+    */
+    .hero {
+        grid-template-columns: minmax(0, 1fr) minmax(320px, 440px);
+    }
+
+    .reviews,
+    .instructors {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .facts {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* ===============================
+1024px: компьютер
+=============================== */
+
+@media (min-width: 1024px) {
+    /*
+    Все 7 пунктов меню помещаются в одну строку вместе с логотипом,
+    поэтому кнопка "Меню" больше не нужна.
+    */
+    .site-header__inner {
+        flex-wrap: nowrap;
+        gap: var(--space-lg);
+    }
+
+    .site-header__toggle {
+        display: none;
+    }
+
+    .site-nav {
+        display: block;
+        flex-basis: auto;
+        flex-grow: 1;
+        min-width: 0;
+    }
+
+    .site-nav__list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 0;
+    }
+
+    .site-nav__link {
+        padding: var(--space-sm) 12px;
+        white-space: nowrap;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .contacts-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .site-footer__inner {
+        grid-template-columns: 1.5fr 1fr 1.3fr;
+    }
+
+    /* Заявка слева, калькулятор и подсказки справа */
+    .order {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+        align-items: start;
+    }
+
+    .order__aside {
+        position: sticky;
+        top: calc(var(--header-height) + var(--space-md));
+    }
+
+    /*
+    Фильтры слева шириной 260px, карточки занимают остальное место.
+    Кнопка "Поиск и фильтры" не нужна, фильтры всегда открыты.
+    */
+    .catalog-layout {
+        grid-template-columns: 260px minmax(0, 1fr);
+        align-items: start;
+    }
+
+    .catalog-layout__filters {
+        position: sticky;
+        top: calc(var(--header-height) + var(--space-md));
+    }
+
+    .catalog-filters__toggle {
+        display: none;
+    }
+
+    .catalog-filters__title {
+        display: block;
+    }
+
+    .catalog-filters__form {
+        display: grid;
+        margin-top: 0;
+    }
+
+    /* Рядом с фильтрами места меньше, поэтому в каталоге по две карточки в ряд */
+    .catalog-layout .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* ===============================
+1200px: широкий экран
+=============================== */
+
+@media (min-width: 1200px) {
+    .catalog-layout .products-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/*
+Если в системе включено "Уменьшить движение",
+плавная прокрутка к якорям отключается.
+*/
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Парус - учебный сайт парусной школы и яхт-клуба: курсы, выходы под парусом, аренда яхт.">
+    <title>Парус | Парусная школа и яхт-клуб на Клязьминском водохранилище</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <a class="skip-link" href="#main">Перейти к основному содержимому</a>
+
+    <header class="site-header" id="top">
+        <div class="site-header__inner">
+            <a class="site-header__logo" href="index.html">Парус</a>
+
+            <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="site-nav">Меню</button>
+
+            <nav class="site-nav" id="site-nav" aria-label="Основная навигация">
+                <ul class="site-nav__list">
+                    <li class="site-nav__item"><a class="site-nav__link site-nav__link--active" href="index.html" aria-current="page">Главная</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link" href="courses.html">Курсы</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link" href="fleet.html">Флот</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link" href="schedule.html">Расписание</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link" href="order.html">Заявка</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link" href="account.html">Личный кабинет</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link" href="contacts.html">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main" class="main" tabindex="-1">
+        <section class="hero">
+            <div class="hero__content">
+                <h1 class="hero__title">Парусная школа и яхт-клуб "Парус"</h1>
+                <p class="hero__text">Учим ходить под парусом на Клязьминском водохранилище. Курсы для новичков и шкиперов, детская группа, выходы на яхтах и аренда лодок.</p>
+                <div class="hero__actions">
+                    <a class="button button--primary" href="courses.html">Выбрать курс</a>
+                    <a class="button button--secondary" href="schedule.html">Расписание выходов</a>
+                    <button class="button button--secondary" type="button" data-open-modal>Быстрая заявка</button>
+                </div>
+            </div>
+            <picture class="hero__picture">
+                <source media="(min-width: 900px)" type="image/webp" srcset="images/hero-desktop-480.webp 480w, images/hero-desktop.webp 800w" sizes="440px" width="800" height="600">
+                <source media="(min-width: 900px)" srcset="images/hero-desktop-480.jpg 480w, images/hero-desktop.jpg 800w" sizes="440px" width="800" height="600">
+                <source type="image/webp" srcset="images/hero-mobile-480.webp 480w, images/hero-mobile.webp 800w" sizes="(min-width: 768px) 720px, 100vw">
+                <img class="hero__image" src="images/hero-mobile.jpg" srcset="images/hero-mobile-480.jpg 480w, images/hero-mobile.jpg 800w" sizes="(min-width: 768px) 720px, 100vw" width="800" height="450" alt="Яхта с белыми парусами идёт по воде">
+            </picture>
+        </section>
+
+        <section class="section" id="about">
+            <div class="split">
+                <div class="split__text">
+                    <h2 class="section__title">О школе</h2>
+                    <p>Школа "Парус" работает на Клязьминском водохранилище с мая по октябрь. Теорию проходим в клубном доме, всё остальное время учимся на воде: сначала с инструктором на борту, потом самостоятельно.</p>
+                    <p>Подходим и тем, кто никогда не держал руль, и тем, кто хочет получить права шкипера или выйти на регату.</p>
+                </div>
+                <picture class="split__picture">
+                    <source type="image/webp" srcset="images/club-training-480.webp 480w, images/club-training.webp 800w" sizes="(min-width: 768px) 520px, 100vw">
+                    <img class="split__image" src="images/club-training.jpg" srcset="images/club-training-480.jpg 480w, images/club-training.jpg 800w" sizes="(min-width: 768px) 520px, 100vw" width="800" height="600" alt="Много парусных лодок на воде водохранилища, вдали лес" loading="lazy">
+                </picture>
+            </div>
+            <ul class="facts">
+                <li class="facts__item">
+                    <h3 class="facts__title">Малые группы</h3>
+                    <p class="facts__text">До 6 взрослых или до 8 детей на одного инструктора.</p>
+                </li>
+                <li class="facts__item">
+                    <h3 class="facts__title">Свой флот</h3>
+                    <p class="facts__text">Шесть лодок и яхт от детского Оптимиста до гоночной яхты.</p>
+                </li>
+                <li class="facts__item">
+                    <h3 class="facts__title">Безопасность</h3>
+                    <p class="facts__text">Спасательные жилеты у всех и катер сопровождения на каждом занятии.</p>
+                </li>
+            </ul>
+        </section>
+
+        <section class="section" id="popular">
+            <div class="section__header">
+                <h2 class="section__title">Популярные курсы</h2>
+                <a href="courses.html">Все курсы</a>
+            </div>
+            <div class="products-grid">
+                <article class="product-card" data-id="1" data-category="beginner" data-price="12900" data-available="true">
+                    <picture class="product-card__picture">
+                        <source type="image/webp" srcset="images/small-sloop-480.webp 480w, images/small-sloop.webp 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw">
+                        <img class="product-card__image" src="images/small-sloop.jpg" srcset="images/small-sloop-480.jpg 480w, images/small-sloop.jpg 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw" width="800" height="600" alt="Небольшая белая яхта на воде у берега" loading="lazy">
+                    </picture>
+                    <div class="product-card__body">
+                        <p class="product-card__category">Для новичков</p>
+                        <h3 class="product-card__title"><a class="product-card__link" href="course.html?id=1">Азы парусного спорта</a></h3>
+                        <p class="product-card__description">Устройство яхты, повороты, работа с парусами и безопасность на воде. Практика на учебной яхте.</p>
+                        <ul class="product-card__meta">
+                            <li>4 занятия по 4 часа</li>
+                            <li><span class="badge badge--ok">Набор открыт</span></li>
+                        </ul>
+                        <p class="product-card__price">12 900 руб.</p>
+                        <div class="product-card__actions">
+                            <a class="button button--secondary button--small" href="course.html?id=1">Подробнее</a>
+                            <a class="button button--primary button--small" href="order.html?course=1">Записаться</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="product-card" data-id="4" data-category="skipper" data-price="36000" data-available="true">
+                    <picture class="product-card__picture">
+                        <source type="image/webp" srcset="images/cruiser-a-480.webp 480w, images/cruiser-a.webp 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw">
+                        <img class="product-card__image" src="images/cruiser-a.jpg" srcset="images/cruiser-a-480.jpg 480w, images/cruiser-a.jpg 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw" width="800" height="600" alt="Килевая яхта под парусами на озере" loading="lazy">
+                    </picture>
+                    <div class="product-card__body">
+                        <p class="product-card__category">Шкипер</p>
+                        <h3 class="product-card__title"><a class="product-card__link" href="course.html?id=4">Шкипер-прибрежник</a></h3>
+                        <p class="product-card__description">Управление яхтой в прибрежной зоне, расчёт курса, швартовка. В конце теоретический и практический экзамен.</p>
+                        <ul class="product-card__meta">
+                            <li>8 занятий и экзамен</li>
+                            <li><span class="badge badge--ok">Набор открыт</span></li>
+                        </ul>
+                        <p class="product-card__price">36 000 руб.</p>
+                        <div class="product-card__actions">
+                            <a class="button button--secondary button--small" href="course.html?id=4">Подробнее</a>
+                            <a class="button button--primary button--small" href="order.html?course=4">Записаться</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="product-card" data-id="7" data-category="kids" data-price="9500" data-available="true">
+                    <picture class="product-card__picture">
+                        <source type="image/webp" srcset="images/optimist-beach-480.webp 480w, images/optimist-beach.webp 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw">
+                        <img class="product-card__image" src="images/optimist-beach.jpg" srcset="images/optimist-beach-480.jpg 480w, images/optimist-beach.jpg 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw" width="800" height="600" alt="Детские лодки с разноцветными парусами на песчаном берегу" loading="lazy">
+                    </picture>
+                    <div class="product-card__body">
+                        <p class="product-card__category">Детская группа</p>
+                        <h3 class="product-card__title"><a class="product-card__link" href="course.html?id=7">Детская группа 7-10 лет</a></h3>
+                        <p class="product-card__description">Занятия на детских лодках Оптимист в спасательных жилетах. В группе до 8 детей, рядом катер инструктора.</p>
+                        <ul class="product-card__meta">
+                            <li>8 занятий по 2 часа</li>
+                            <li><span class="badge badge--ok">Набор открыт</span></li>
+                        </ul>
+                        <p class="product-card__price">9 500 руб.</p>
+                        <div class="product-card__actions">
+                            <a class="button button--secondary button--small" href="course.html?id=7">Подробнее</a>
+                            <a class="button button--primary button--small" href="order.html?course=7">Записаться</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="trips">
+            <div class="section__header">
+                <h2 class="section__title">Ближайшие выходы</h2>
+                <a href="schedule.html">Всё расписание</a>
+            </div>
+            <table class="info-table table--cards">
+                <caption id="trips-caption">Ближайшие выходы и занятия</caption>
+                <thead>
+                    <tr><th scope="col">Дата и время</th><th scope="col">Название</th><th scope="col">Лодка</th><th scope="col">Свободно мест</th><th scope="col">Цена</th><th scope="col">Запись</th></tr>
+                </thead>
+                <tbody>
+                    <tr data-id="1" data-type="trip" data-free="3">
+                        <td data-label="Дата и время">сб, 5 июня, 10:00</td>
+                        <td data-label="Название">Выход на яхте, 4 часа</td>
+                        <td data-label="Лодка">Ветер</td>
+                        <td data-label="Свободно мест">3 из 6</td>
+                        <td data-label="Цена">2 800 руб.</td>
+                        <td class="info-table__action" data-label="Запись"><a class="button button--primary button--small" href="order.html?trip=1">Записаться</a></td>
+                    </tr>
+                    <tr data-id="2" data-type="lesson" data-free="4">
+                        <td data-label="Дата и время">сб, 5 июня, 15:00</td>
+                        <td data-label="Название">Пробное занятие для новичков</td>
+                        <td data-label="Лодка">Ласточка</td>
+                        <td data-label="Свободно мест">4 из 4</td>
+                        <td data-label="Цена">1 500 руб.</td>
+                        <td class="info-table__action" data-label="Запись"><a class="button button--primary button--small" href="order.html?trip=2">Записаться</a></td>
+                    </tr>
+                    <tr data-id="3" data-type="kids" data-free="2">
+                        <td data-label="Дата и время">вс, 6 июня, 11:00</td>
+                        <td data-label="Название">Детская группа 7-10 лет</td>
+                        <td data-label="Лодка">Оптимист</td>
+                        <td data-label="Свободно мест">2 из 8</td>
+                        <td data-label="Цена">1 200 руб.</td>
+                        <td class="info-table__action" data-label="Запись"><a class="button button--primary button--small" href="order.html?trip=3">Записаться</a></td>
+                    </tr>
+                    <tr data-id="4" data-type="trip" data-free="0">
+                        <td data-label="Дата и время">вс, 6 июня, 17:00</td>
+                        <td data-label="Название">Закатный выход</td>
+                        <td data-label="Лодка">Ветер</td>
+                        <td data-label="Свободно мест">Мест нет</td>
+                        <td data-label="Цена">3 200 руб.</td>
+                        <td class="info-table__action" data-label="Запись"><a class="button button--secondary button--small" href="order.html?trip=4">Лист ожидания</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="section" id="reviews">
+            <h2 class="section__title">Отзывы</h2>
+            <div class="reviews">
+                <blockquote class="review">
+                    <p class="review__text">Боялась воды, а через три занятия сама вела яхту к причалу. Инструктор объяснял спокойно и ничего не делал за меня.</p>
+                    <p class="review__author">Анна, курс "Азы парусного спорта"</p>
+                </blockquote>
+                <blockquote class="review">
+                    <p class="review__text">Сдал экзамен шкипера с первого раза. Больше всего помогли занятия по швартовке, на них было меньше всего теории и больше практики.</p>
+                    <p class="review__author">Дмитрий, курс "Шкипер-прибрежник"</p>
+                </blockquote>
+                <blockquote class="review">
+                    <p class="review__text">Дочь ходит в детскую группу второй сезон. Всегда в жилете, рядом катер, а домой возвращается довольная.</p>
+                    <p class="review__author">Мария, мама ученицы</p>
+                </blockquote>
+            </div>
+        </section>
+
+        <section class="section" id="quick">
+            <h2 class="section__title">Быстрая заявка</h2>
+            <p class="section__text">Оставьте имя и телефон, мы перезвоним и подберём курс или выход. Полная заявка с оплатой лежит на отдельной странице.</p>
+            <button class="button button--primary" type="button" data-open-modal>Оставить заявку</button>
+        </section>
+
+        <dialog class="modal" id="quick-dialog" aria-labelledby="quick-dialog-title">
+            <div class="modal__head">
+                <h2 class="modal__title" id="quick-dialog-title">Быстрая заявка</h2>
+                <button class="modal__close" type="button" data-close-modal aria-label="Закрыть окно"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form class="form" id="quick-form" action="order.html" method="get">
+                <p class="form__note">Поля, отмеченные звёздочкой, обязательны для заполнения.</p>
+                <div class="form__group">
+                    <label class="form__label" for="quick-name">Имя <span class="form__required" aria-hidden="true">*</span></label>
+                    <input class="form__input" id="quick-name" name="name" type="text" required autocomplete="name" autofocus aria-describedby="quick-name-error">
+                    <p class="form__error" id="quick-name-error"></p>
+                </div>
+                <div class="form__group">
+                    <label class="form__label" for="quick-phone">Телефон <span class="form__required" aria-hidden="true">*</span></label>
+                    <input class="form__input" id="quick-phone" name="phone" type="tel" required autocomplete="tel" aria-describedby="quick-phone-hint quick-phone-error">
+                    <p class="form__note" id="quick-phone-hint">Например, +7 999 123-45-67</p>
+                    <p class="form__error" id="quick-phone-error"></p>
+                </div>
+                <div class="form__group">
+                    <label class="form__label" for="quick-interest">Что интересует</label>
+                    <select class="form__select" id="quick-interest" name="interest" aria-describedby="quick-interest-error">
+                        <option value="course">Курс</option>
+                        <option value="trip">Выход под парусом</option>
+                        <option value="rent">Аренда яхты</option>
+                    </select>
+                    <p class="form__error" id="quick-interest-error"></p>
+                </div>
+                <div class="form__actions">
+                    <button class="button button--primary" type="submit">Отправить</button>
+                    <button class="button button--secondary" type="button" data-close-modal>Закрыть</button>
+                </div>
+            </form>
+        </dialog>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <div class="site-footer__col">
+                <h2 class="site-footer__title">Парус</h2>
+                <p class="site-footer__text">Парусная школа и яхт-клуб на Клязьминском водохранилище. Работаем с мая по октябрь.</p>
+            </div>
+            <div class="site-footer__col">
+                <h2 class="site-footer__title">Страницы</h2>
+                <ul class="site-footer__list">
+                    <li class="site-footer__item"><a href="index.html">Главная</a></li>
+                    <li class="site-footer__item"><a href="courses.html">Курсы</a></li>
+                    <li class="site-footer__item"><a href="fleet.html">Флот</a></li>
+                    <li class="site-footer__item"><a href="schedule.html">Расписание</a></li>
+                    <li class="site-footer__item"><a href="order.html">Заявка</a></li>
+                    <li class="site-footer__item"><a href="account.html">Личный кабинет</a></li>
+                    <li class="site-footer__item"><a href="contacts.html">Контакты</a></li>
+                </ul>
+            </div>
+            <div class="site-footer__col">
+                <h2 class="site-footer__title">Контакты</h2>
+                <p class="site-footer__text">Московская область, Мытищи, пос. Пирогово, Береговая ул., 7</p>
+                <p class="site-footer__text">Телефон: <a href="tel:+79997654321">+7 (999) 765-43-21</a></p>
+                <p class="site-footer__text">E-mail: <a href="mailto:info@parus-club.example">info@parus-club.example</a></p>
+            </div>
+        </div>
+        <p class="site-footer__copy">Учебный проект, сайт вымышленной школы. Контрольная работа №3, группа ЭФБО-07-25. Фотографии со Wikimedia Commons, авторы и лицензии указаны в README репозитория.</p>
+    </footer>
+</body>
+</html>

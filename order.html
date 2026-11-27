@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Заявка на курс, выход под парусом или аренду яхты, калькулятор стоимости.">
+    <title>Заявка | Парус</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <a class="skip-link" href="#main">Перейти к основному содержимому</a>
+
+    <header class="site-header" id="top">
+        <div class="site-header__inner">
+            <a class="site-header__logo" href="index.html">Парус</a>
+
+            <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="site-nav">Меню</button>
+
+            <nav class="site-nav" id="site-nav" aria-label="Основная навигация">
+                <ul class="site-nav__list">
+                    <li class="site-nav__item"><a class="site-nav__link" href="index.html">Главная</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link" href="courses.html">Курсы</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link" href="fleet.html">Флот</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link" href="schedule.html">Расписание</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link site-nav__link--active" href="order.html" aria-current="page">Заявка</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link" href="account.html">Личный кабинет</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link" href="contacts.html">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main" class="main" tabindex="-1">
+        <h1>Заявка</h1>
+        <p class="section__text">Выберите курс, выход или аренду, укажите данные и способ оплаты. Администратор подтвердит заявку по телефону.</p>
+
+        <div class="order">
+            <div class="order__main">
+                <form class="form" id="order-form" action="account.html" method="get">
+                    <p class="form__note">Поля, отмеченные звёздочкой, обязательны для заполнения.</p>
+                    <fieldset class="form__fieldset">
+                        <legend class="form__legend">Что вы выбираете</legend>
+                        <div class="form">
+                            <div class="form__group">
+                                <label class="form__label" for="order-item">Курс, выход или аренда <span class="form__required" aria-hidden="true">*</span></label>
+                                <select class="form__select" id="order-item" name="item" required aria-describedby="order-item-error">
+                                    <optgroup label="Курсы">
+                                        <option value="course-1">Азы парусного спорта, 12 900 руб.</option>
+                                        <option value="course-2">Интенсив на выходные, 8 500 руб.</option>
+                                        <option value="course-3">Занятие на лодке Лазер, 3 200 руб.</option>
+                                        <option value="course-4">Шкипер-прибрежник, 36 000 руб.</option>
+                                        <option value="course-5">Навигация и работа с картой, 14 500 руб.</option>
+                                        <option value="course-6">Швартовка и управление под мотором, 9 800 руб.</option>
+                                        <option value="course-7">Детская группа 7-10 лет, 9 500 руб.</option>
+                                        <option value="course-8">Юный капитан 11-14 лет, 11 000 руб.</option>
+                                        <option value="course-9">Подготовка к клубной регате, 15 000 руб.</option>
+                                        <option value="course-10">Тактика гонки и работа экипажа, 17 500 руб.</option>
+                                    </optgroup>
+                                    <optgroup label="Выходы">
+                                        <option value="trip-1">5 июня, 10:00, Выход на яхте, 4 часа</option>
+                                        <option value="trip-2">5 июня, 15:00, Пробное занятие для новичков</option>
+                                        <option value="trip-3">6 июня, 11:00, Детская группа 7-10 лет</option>
+                                        <option value="trip-4">6 июня, 17:00, Закатный выход</option>
+                                        <option value="trip-5">12 июня, 10:00, Клубная регата, 1 этап</option>
+                                        <option value="trip-6">12 июня, 17:00, Выход на малой яхте</option>
+                                        <option value="trip-7">13 июня, 10:00, Пробное занятие на лодке Лазер</option>
+                                        <option value="trip-8">13 июня, 12:00, Детская группа 11-14 лет</option>
+                                        <option value="trip-9">19 июня, 10:00, Выход на яхте, 6 часов</option>
+                                        <option value="trip-10">20 июня, 11:00, Клубная регата, 2 этап</option>
+                                        <option value="trip-11">26 июня, 10:00, Пробное занятие для новичков</option>
+                                        <option value="trip-12">27 июня, 16:00, Закатный выход</option>
+                                    </optgroup>
+                                    <optgroup label="Аренда яхты">
+                                        <option value="rent-2">Лазер</option>
+                                        <option value="rent-3">Летучий голландец</option>
+                                        <option value="rent-4">Ласточка</option>
+                                        <option value="rent-5">Ветер</option>
+                                        <option value="rent-6">Заря</option>
+                                    </optgroup>
+                                </select>
+                                <p class="form__error" id="order-item-error"></p>
+                            </div>
+                            <div class="form__row">
+                                <div class="form__group">
+                                    <label class="form__label" for="order-date">Желаемая дата</label>
+                                    <input class="form__input" id="order-date" name="date" type="date" aria-describedby="order-date-error">
+                                    <p class="form__error" id="order-date-error"></p>
+                                </div>
+                                <div class="form__group">
+                                    <label class="form__label" for="order-people">Человек в заявке <span class="form__required" aria-hidden="true">*</span></label>
+                                    <input class="form__input" id="order-people" name="people" type="number" required min="1" max="8" value="1" aria-describedby="order-people-error">
+                                    <p class="form__error" id="order-people-error"></p>
+                                </div>
+                            </div>
+                            <div class="form__row">
+                                <div class="form__group">
+                                    <label class="form__label" for="order-days">Дней аренды</label>
+                                    <input class="form__input" id="order-days" name="days" type="number" min="1" max="14" value="1" aria-describedby="order-days-hint order-days-error">
+                                    <p class="form__note" id="order-days-hint">Заполняйте только для аренды яхты</p>
+                                    <p class="form__error" id="order-days-error"></p>
+                                </div>
+                                <div class="form__check">
+                                    <input id="order-captain" name="captain" type="checkbox" value="1">
+                                    <label for="order-captain">С капитаном (для аренды)</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="form__fieldset">
+                        <legend class="form__legend">Ваши данные</legend>
+                        <div class="form">
+                            <div class="form__row">
+                                <div class="form__group">
+                                    <label class="form__label" for="order-name">Фамилия и имя <span class="form__required" aria-hidden="true">*</span></label>
+                                    <input class="form__input" id="order-name" name="name" type="text" required autocomplete="name" aria-describedby="order-name-error">
+                                    <p class="form__error" id="order-name-error"></p>
+                                </div>
+                                <div class="form__group">
+                                    <label class="form__label" for="order-phone">Телефон <span class="form__required" aria-hidden="true">*</span></label>
+                                    <input class="form__input" id="order-phone" name="phone" type="tel" required autocomplete="tel" aria-describedby="order-phone-hint order-phone-error">
+                                    <p class="form__note" id="order-phone-hint">Например, +7 999 123-45-67</p>
+                                    <p class="form__error" id="order-phone-error"></p>
+                                </div>
+                            </div>
+                            <div class="form__group">
+                                <label class="form__label" for="order-email">E-mail</label>
+                                <input class="form__input" id="order-email" name="email" type="email" autocomplete="email" aria-describedby="order-email-error">
+                                <p class="form__error" id="order-email-error"></p>
+                            </div>
+                            <div class="form__group">
+                                <label class="form__label" for="order-comment">Комментарий</label>
+                                <textarea class="form__textarea" id="order-comment" name="comment" rows="4" aria-describedby="order-comment-error"></textarea>
+                                <p class="form__error" id="order-comment-error"></p>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="form__fieldset" id="payment">
+                        <legend class="form__legend">Способ оплаты</legend>
+                        <div class="form">
+                            <div class="form__check">
+                                <input id="pay-method-card" name="pay" type="radio" value="card" checked>
+                                <label for="pay-method-card">Банковская карта</label>
+                            </div>
+                            <div class="form__check">
+                                <input id="pay-method-sbp" name="pay" type="radio" value="sbp">
+                                <label for="pay-method-sbp">СБП</label>
+                            </div>
+                            <div class="form__check">
+                                <input id="pay-method-cash" name="pay" type="radio" value="cash">
+                                <label for="pay-method-cash">На месте, в клубе</label>
+                            </div>
+
+                            <div class="form payment-block" data-payment="card">
+                                <p class="payment-block__title">Оплата картой</p>
+                                <div class="form__group">
+                                    <label class="form__label" for="pay-card-number">Номер карты <span class="form__required" aria-hidden="true">*</span></label>
+                                    <input class="form__input" id="pay-card-number" type="text" required autocomplete="cc-number" inputmode="numeric" maxlength="19" placeholder="0000 0000 0000 0000" aria-describedby="pay-card-number-error">
+                                    <p class="form__error" id="pay-card-number-error"></p>
+                                </div>
+                                <div class="form__row">
+                                    <div class="form__group">
+                                        <label class="form__label" for="pay-card-expiry">Срок действия <span class="form__required" aria-hidden="true">*</span></label>
+                                        <input class="form__input" id="pay-card-expiry" type="text" required autocomplete="cc-exp" maxlength="5" placeholder="ММ/ГГ" aria-describedby="pay-card-expiry-error">
+                                        <p class="form__error" id="pay-card-expiry-error"></p>
+                                    </div>
+                                    <div class="form__group">
+                                        <label class="form__label" for="pay-card-cvc">Код CVC <span class="form__required" aria-hidden="true">*</span></label>
+                                        <input class="form__input" id="pay-card-cvc" type="password" required autocomplete="cc-csc" inputmode="numeric" maxlength="3" aria-describedby="pay-card-cvc-error">
+                                        <p class="form__error" id="pay-card-cvc-error"></p>
+                                    </div>
+                                </div>
+                                <div class="form__group">
+                                    <label class="form__label" for="pay-card-holder">Имя на карте <span class="form__required" aria-hidden="true">*</span></label>
+                                    <input class="form__input" id="pay-card-holder" type="text" required autocomplete="cc-name" placeholder="IVAN IVANOV" aria-describedby="pay-card-holder-error">
+                                    <p class="form__error" id="pay-card-holder-error"></p>
+                                </div>
+                            </div>
+
+                            <div class="form payment-block" data-payment="sbp">
+                                <p class="payment-block__title">Оплата через СБП</p>
+                                <div class="form__group">
+                                    <label class="form__label" for="pay-sbp-phone">Телефон, к которому привязан банк <span class="form__required" aria-hidden="true">*</span></label>
+                                    <input class="form__input" id="pay-sbp-phone" type="tel" required autocomplete="tel" aria-describedby="pay-sbp-phone-hint pay-sbp-phone-error">
+                                    <p class="form__note" id="pay-sbp-phone-hint">Счёт придёт в приложение банка</p>
+                                    <p class="form__error" id="pay-sbp-phone-error"></p>
+                                </div>
+                            </div>
+
+                            <div class="form payment-block" data-payment="cash">
+                                <p class="payment-block__title">Оплата на месте</p>
+                                <p>Платите в клубе перед выходом наличными или картой. Бронь держим 24 часа, потом место освобождается.</p>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="form__check">
+                        <input id="order-agree" name="agree" type="checkbox" value="1" required>
+                        <label for="order-agree">Согласен на обработку данных для связи по заявке</label>
+                    </div>
+                    <p class="form__error" id="order-agree-error"></p>
+                    <div class="form__actions">
+                        <button class="button button--primary" type="submit">Отправить заявку</button>
+                        <button class="button button--secondary" type="reset">Очистить форму</button>
+                    </div>
+                    <div class="form__result" id="order-result" aria-live="polite"></div>
+                </form>
+            </div>
+
+            <aside class="order__aside">
+                <section class="aside-box" aria-labelledby="steps-title">
+                    <h2 id="steps-title">Как проходит запись</h2>
+                    <ol class="steps">
+                        <li class="steps__item">Вы отправляете заявку, ей присваивается номер.</li>
+                        <li class="steps__item">Администратор звонит и подтверждает дату.</li>
+                        <li class="steps__item">Вы оплачиваете участие выбранным способом.</li>
+                        <li class="steps__item">Приезжаете в клуб за 20 минут до начала.</li>
+                    </ol>
+                </section>
+
+                <section class="calc" id="calc" aria-labelledby="calc-title">
+                    <h2 id="calc-title">Калькулятор стоимости</h2>
+                    <form class="form" id="calc-form" action="order.html#calc" method="get">
+                        <div class="form__group">
+                            <label class="form__label" for="calc-kind">Что нужно</label>
+                            <select class="form__select" id="calc-kind" name="kind" aria-describedby="calc-kind-error">
+                                <option value="course">Курс</option>
+                                <option value="rent">Аренда яхты</option>
+                            </select>
+                            <p class="form__error" id="calc-kind-error"></p>
+                        </div>
+                        <div class="form__group">
+                            <label class="form__label" for="calc-item">Что считаем</label>
+                            <select class="form__select" id="calc-item" name="item" aria-describedby="calc-item-error">
+                                <optgroup label="Курсы">
+                                    <option value="course-1" data-price="12900">Азы парусного спорта, 12 900 руб.</option>
+                                    <option value="course-2" data-price="8500">Интенсив на выходные, 8 500 руб.</option>
+                                    <option value="course-3" data-price="3200">Занятие на лодке Лазер, 3 200 руб.</option>
+                                    <option value="course-4" data-price="36000">Шкипер-прибрежник, 36 000 руб.</option>
+                                    <option value="course-5" data-price="14500">Навигация и работа с картой, 14 500 руб.</option>
+                                    <option value="course-6" data-price="9800">Швартовка и управление под мотором, 9 800 руб.</option>
+                                    <option value="course-7" data-price="9500">Детская группа 7-10 лет, 9 500 руб.</option>
+                                    <option value="course-8" data-price="11000">Юный капитан 11-14 лет, 11 000 руб.</option>
+                                    <option value="course-9" data-price="15000">Подготовка к клубной регате, 15 000 руб.</option>
+                                    <option value="course-10" data-price="17500">Тактика гонки и работа экипажа, 17 500 руб.</option>
+                                </optgroup>
+                                <optgroup label="Аренда яхты">
+                                    <option value="rent-2" data-price-capt="3500" data-price-free="2500">Лазер</option>
+                                    <option value="rent-3" data-price-capt="4500" data-price-free="3800">Летучий голландец</option>
+                                    <option value="rent-4" data-price-capt="6500" data-price-free="5000">Ласточка</option>
+                                    <option value="rent-5" data-price-capt="12000" data-price-free="9500">Ветер</option>
+                                    <option value="rent-6" data-price-capt="16000" data-price-free="13000">Заря</option>
+                                </optgroup>
+                            </select>
+                            <p class="form__error" id="calc-item-error"></p>
+                        </div>
+                        <div class="form__row">
+                            <div class="form__group">
+                                <label class="form__label" for="calc-people">Человек</label>
+                                <input class="form__input" id="calc-people" name="people" type="number" min="1" max="8" value="1" aria-describedby="calc-people-error">
+                                <p class="form__error" id="calc-people-error"></p>
+                            </div>
+                            <div class="form__group">
+                                <label class="form__label" for="calc-days">Дней</label>
+                                <input class="form__input" id="calc-days" name="days" type="number" min="1" max="14" value="1" aria-describedby="calc-days-error">
+                                <p class="form__error" id="calc-days-error"></p>
+                            </div>
+                        </div>
+                        <div class="form__check">
+                            <input id="calc-captain" name="captain" type="checkbox" value="1">
+                            <label for="calc-captain">С капитаном (для аренды)</label>
+                        </div>
+                        <fieldset class="form__fieldset">
+                            <legend class="form__legend">Дополнительно</legend>
+                            <div class="form__check">
+                                <input id="calc-opt-gear" name="option" type="checkbox" value="gear" data-price="500" data-per="day">
+                                <label for="calc-opt-gear">Гидрокостюм и жилет, 500 руб. в день</label>
+                            </div>
+                            <div class="form__check">
+                                <input id="calc-opt-photo" name="option" type="checkbox" value="photo" data-price="1000" data-per="once">
+                                <label for="calc-opt-photo">Фото и видео с воды, 1 000 руб.</label>
+                            </div>
+                            <div class="form__check">
+                                <input id="calc-opt-insurance" name="option" type="checkbox" value="insurance" data-price="300" data-per="person">
+                                <label for="calc-opt-insurance">Страховка, 300 руб. на человека</label>
+                            </div>
+                        </fieldset>
+                        <button class="button button--primary" type="submit">Рассчитать</button>
+                        <p class="calc__result" id="calc-result" aria-live="polite">Итого: <strong id="calc-total">0 руб.</strong></p>
+                    </form>
+                </section>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <div class="site-footer__col">
+                <h2 class="site-footer__title">Парус</h2>
+                <p class="site-footer__text">Парусная школа и яхт-клуб на Клязьминском водохранилище. Работаем с мая по октябрь.</p>
+            </div>
+            <div class="site-footer__col">
+                <h2 class="site-footer__title">Страницы</h2>
+                <ul class="site-footer__list">
+                    <li class="site-footer__item"><a href="index.html">Главная</a></li>
+                    <li class="site-footer__item"><a href="courses.html">Курсы</a></li>
+                    <li class="site-footer__item"><a href="fleet.html">Флот</a></li>
+                    <li class="site-footer__item"><a href="schedule.html">Расписание</a></li>
+                    <li class="site-footer__item"><a href="order.html">Заявка</a></li>
+                    <li class="site-footer__item"><a href="account.html">Личный кабинет</a></li>
+                    <li class="site-footer__item"><a href="contacts.html">Контакты</a></li>
+                </ul>
+            </div>
+            <div class="site-footer__col">
+                <h2 class="site-footer__title">Контакты</h2>
+                <p class="site-footer__text">Московская область, Мытищи, пос. Пирогово, Береговая ул., 7</p>
+                <p class="site-footer__text">Телефон: <a href="tel:+79997654321">+7 (999) 765-43-21</a></p>
+                <p class="site-footer__text">E-mail: <a href="mailto:info@parus-club.example">info@parus-club.example</a></p>
+            </div>
+        </div>
+        <p class="site-footer__copy">Учебный проект, сайт вымышленной школы. Контрольная работа №3, группа ЭФБО-07-25. Фотографии со Wikimedia Commons, авторы и лицензии указаны в README репозитория.</p>
+    </footer>
+</body>
+</html>

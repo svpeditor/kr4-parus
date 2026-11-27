@@ -1,0 +1,714 @@
+/* ===============================
+1. Переменные проекта
+=============================== */
+
+:root {
+    /* Основные цвета проекта */
+    --color-bg: #ffffff;
+    --color-text: #222222;
+    --color-muted: #595959;
+    --color-primary: #0057b8;
+    --color-primary-dark: #003f86;
+    --color-border: #dddddd;
+    --color-field: #8a8a8a;
+    --color-surface: #f5f5f5;
+    --color-surface-accent: #eef5ff;
+    --color-danger: #b00020;
+    --color-success: #2e7d32;
+    --color-warning: #8a5a00;
+    --color-white: #ffffff;
+
+    /* Отступы */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+
+    /* Скругления */
+    --radius-sm: 6px;
+    --radius-md: 8px;
+
+    /* Размеры */
+    --container-width: 1100px;
+    --header-height: 64px;
+}
+
+/* ===============================
+2. Базовые стили
+=============================== */
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+}
+
+h1,
+h2,
+h3 {
+    margin: 0 0 var(--space-md);
+    line-height: 1.25;
+}
+
+h1 {
+    font-size: 28px;
+}
+
+h2 {
+    font-size: 22px;
+}
+
+h3 {
+    font-size: 18px;
+}
+
+p {
+    margin: 0 0 var(--space-md);
+}
+
+a {
+    color: var(--color-primary);
+}
+
+a:hover {
+    color: var(--color-primary-dark);
+}
+
+/*
+Кнопка - отдельный блок. Цвет задаёт модификатор:
+button--primary (основная) или button--secondary (второстепенная).
+*/
+.button {
+    display: inline-block;
+    padding: var(--space-sm) var(--space-md);
+    font: inherit;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}
+
+.button--primary {
+    color: var(--color-white);
+    background-color: var(--color-primary);
+}
+
+/*
+Цвет текста указан ещё раз, иначе у ссылки-кнопки срабатывает a:hover
+и текст сливается с фоном.
+*/
+.button--primary:hover {
+    color: var(--color-white);
+    background-color: var(--color-primary-dark);
+}
+
+.button--secondary {
+    color: var(--color-primary);
+    background-color: var(--color-white);
+}
+
+.button--secondary:hover {
+    color: var(--color-primary-dark);
+    background-color: var(--color-surface-accent);
+}
+
+.button--small {
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+/*
+Бейдж: категория курса, статус заявки, пометка "Набор закрыт".
+*/
+.badge {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--color-primary);
+    background-color: var(--color-surface-accent);
+    border: 1px solid var(--color-primary);
+    border-radius: 4px;
+}
+
+.badge--closed {
+    color: var(--color-danger);
+    background-color: var(--color-white);
+    border-color: var(--color-danger);
+}
+
+.badge--ok {
+    color: var(--color-success);
+    background-color: var(--color-white);
+    border-color: var(--color-success);
+}
+
+.badge--wait {
+    color: var(--color-warning);
+    background-color: var(--color-white);
+    border-color: var(--color-warning);
+}
+
+.muted {
+    color: var(--color-muted);
+}
+
+/* ===============================
+3. Шапка и навигация
+=============================== */
+
+.site-header {
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.site-header__logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+.site-header__logo:hover {
+    color: var(--color-primary);
+}
+
+.site-nav__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.site-nav__link {
+    color: var(--color-primary);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+}
+
+.site-nav__link:hover {
+    color: var(--color-white);
+    background-color: var(--color-primary);
+}
+
+/* Пункт текущей страницы */
+.site-nav__link--active {
+    font-weight: bold;
+    background-color: var(--color-surface-accent);
+}
+
+/* ===============================
+4. Подвал
+=============================== */
+
+.site-footer {
+    margin-top: var(--space-xl);
+    background-color: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+}
+
+.site-footer__title {
+    margin-bottom: var(--space-sm);
+    font-size: 16px;
+}
+
+.site-footer__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.site-footer__item {
+    margin-bottom: var(--space-xs);
+}
+
+.site-footer__text {
+    margin: 0 0 var(--space-xs);
+    font-size: 14px;
+}
+
+.site-footer__copy {
+    margin: 0;
+    padding: var(--space-md) 0 var(--space-lg);
+    font-size: 14px;
+    color: var(--color-muted);
+    border-top: 1px solid var(--color-border);
+}
+
+/* ===============================
+5. Разделы страницы
+=============================== */
+
+.section {
+    margin-bottom: var(--space-xl);
+}
+
+.section__header {
+    margin-bottom: var(--space-md);
+}
+
+.section__title {
+    margin-bottom: var(--space-sm);
+}
+
+.section__text {
+    max-width: 70ch;
+}
+
+/* Главный блок страницы */
+.hero__title {
+    font-size: 30px;
+}
+
+.hero__text {
+    font-size: 18px;
+}
+
+.hero__image {
+    display: block;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+/* Короткие факты о школе */
+.facts__item {
+    padding: var(--space-md);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+.facts__title {
+    margin-bottom: var(--space-xs);
+    font-size: 18px;
+}
+
+.facts__text {
+    margin: 0;
+}
+
+/* ===============================
+6. Карточки курсов, лодок и отзывов
+=============================== */
+
+.product-card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.product-card__image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+.product-card__body {
+    padding: var(--space-md);
+}
+
+.product-card__category {
+    margin-bottom: var(--space-xs);
+    font-size: 14px;
+    color: var(--color-muted);
+}
+
+.product-card__title {
+    margin-bottom: var(--space-sm);
+    font-size: 18px;
+}
+
+.product-card__link {
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+.product-card__link:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+.product-card__description {
+    font-size: 15px;
+}
+
+.product-card__meta {
+    margin: 0 0 var(--space-sm);
+    padding: 0;
+    font-size: 14px;
+    list-style: none;
+}
+
+.product-card__price {
+    margin-bottom: var(--space-md);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.review {
+    margin: 0;
+    padding: var(--space-md);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+.review__text {
+    margin-bottom: var(--space-sm);
+}
+
+.review__author {
+    margin: 0;
+    font-size: 14px;
+    color: var(--color-muted);
+}
+
+/* ===============================
+7. Таблицы
+=============================== */
+
+.info-table {
+    border-collapse: collapse;
+}
+
+.info-table th,
+.info-table td {
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+    border: 1px solid var(--color-border);
+}
+
+.info-table th {
+    background-color: var(--color-surface);
+}
+
+.info-table caption {
+    padding: var(--space-sm) 0;
+    font-weight: bold;
+    text-align: left;
+}
+
+/* ===============================
+8. Каталог и фильтры
+=============================== */
+
+.catalog-filters {
+    padding: var(--space-md);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+.catalog-filters__title {
+    margin-bottom: var(--space-md);
+    font-size: 18px;
+}
+
+.catalog-count {
+    font-weight: bold;
+}
+
+.catalog-empty {
+    padding: var(--space-md);
+    border: 1px dashed var(--color-field);
+    border-radius: var(--radius-md);
+}
+
+/* ===============================
+9. Формы
+=============================== */
+
+.form__label {
+    font-weight: bold;
+}
+
+.form__input,
+.form__select,
+.form__textarea {
+    padding: 10px 12px;
+    font: inherit;
+    color: var(--color-text);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-field);
+    border-radius: var(--radius-sm);
+}
+
+.form__textarea {
+    resize: vertical;
+}
+
+.form__fieldset {
+    margin: 0;
+    padding: var(--space-sm) var(--space-md) var(--space-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+.form__legend {
+    padding: 0 var(--space-sm);
+    font-weight: bold;
+}
+
+.form__note {
+    margin: 0;
+    font-size: 14px;
+    color: var(--color-muted);
+}
+
+.form__error {
+    margin: 0;
+    font-size: 14px;
+    color: var(--color-danger);
+}
+
+.form__error:empty {
+    display: none;
+}
+
+.form__check {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+}
+
+.payment-block__title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.payment-block {
+    padding: var(--space-md);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+.form__result:empty {
+    display: none;
+}
+
+.form__result {
+    margin: 0;
+    padding: var(--space-md);
+    background-color: var(--color-surface-accent);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-md);
+}
+
+/* ===============================
+10. Модальное окно
+=============================== */
+
+.modal {
+    padding: var(--space-md);
+    color: var(--color-text);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-field);
+    border-radius: var(--radius-md);
+}
+
+.modal::backdrop {
+    background-color: rgb(0 0 0 / 0.5);
+}
+
+.modal__title {
+    margin-bottom: var(--space-sm);
+}
+
+.modal__close {
+    font: inherit;
+    font-size: 24px;
+    line-height: 1;
+    color: var(--color-text);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-field);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}
+
+/* ===============================
+11. Страница курса, флот, расписание, заказ, кабинет, контакты
+=============================== */
+
+.course__facts,
+.specs {
+    margin: 0 0 var(--space-md);
+    padding: 0;
+}
+
+.course__facts dt,
+.specs dt {
+    font-weight: bold;
+}
+
+.program__item {
+    margin-bottom: var(--space-md);
+}
+
+.instructor {
+    padding: var(--space-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+.instructor__name {
+    margin-bottom: var(--space-xs);
+    font-size: 18px;
+}
+
+.instructor__role {
+    margin-bottom: var(--space-sm);
+    font-size: 14px;
+    color: var(--color-muted);
+}
+
+.steps {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.steps__item {
+    margin-bottom: var(--space-sm);
+}
+
+.calc,
+.aside-box,
+.quiz,
+.auth__box,
+.status {
+    padding: var(--space-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+.calc__result {
+    margin: 0;
+    font-size: 18px;
+}
+
+.form + .status {
+    margin-top: var(--space-md);
+}
+
+.status-steps {
+    margin: 0 0 var(--space-md);
+    padding-left: 20px;
+}
+
+.status-steps__item--done {
+    color: var(--color-success);
+}
+
+.status-steps__item--current {
+    font-weight: bold;
+}
+
+.cart__total {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.contact-card {
+    padding: var(--space-md);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+.contact-card__title {
+    margin-bottom: var(--space-xs);
+    font-size: 16px;
+}
+
+.contact-card__text {
+    margin: 0;
+}
+
+.map {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+.faq__item {
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+.faq__question {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.faq__answer {
+    margin: var(--space-sm) 0 0;
+}
+
+/* ===============================
+12. Доступность
+=============================== */
+
+/*
+Видимый фокус при переходе клавишей Tab на всех интерактивных
+элементах: ссылки, кнопки, поля, вопросы, прокручиваемая обёртка таблицы.
+Рамка 3px с отступом заметна и на синих кнопках.
+*/
+:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+/*
+Ссылка пропуска к основному содержимому. Спрятана за верхним краем
+экрана и появляется только при фокусе с клавиатуры.
+display: none не используем, иначе до неё нельзя дойти клавишей Tab.
+*/
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: var(--space-md);
+    z-index: 1000;
+    padding: var(--space-sm) 12px;
+    color: var(--color-white);
+    background-color: #111111;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+    top: var(--space-md);
+    color: var(--color-white);
+}
+
+/*
+На main фокус переходит после ссылки пропуска (tabindex="-1").
+Рамку вокруг всего содержимого страницы не рисуем.
+*/
+.main:focus {
+    outline: none;
+}
+
+/*
+Звёздочка у обязательных полей. Цвет не единственный признак:
+рядом с формой есть пояснение, а у поля стоит атрибут required.
+*/
+.form__required {
+    color: var(--color-danger);
+}
+
+/* Поле с ошибкой выделяется рамкой и текстом сообщения под полем */
+.form__input[aria-invalid="true"],
+.form__select[aria-invalid="true"],
+.form__textarea[aria-invalid="true"] {
+    border-color: var(--color-danger);
+    border-width: 2px;
+}
