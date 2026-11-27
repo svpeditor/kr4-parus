@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/responsive.css">
     <script src="js/data.js" defer></script>
     <script src="js/utils.js" defer></script>
+    <script src="js/cart.js" defer></script>
     <script src="js/catalog.js" defer></script>
     <script src="js/main.js" defer></script>
 </head>
@@ -29,6 +30,7 @@
                     <li class="site-nav__item"><a class="site-nav__link" href="fleet.html">Флот</a></li>
                     <li class="site-nav__item"><a class="site-nav__link" href="schedule.html">Расписание</a></li>
                     <li class="site-nav__item"><a class="site-nav__link" href="order.html">Заявка</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link" href="account.html#cart">Мои записи <span data-cart-count>(0)</span></a></li>
                     <li class="site-nav__item"><a class="site-nav__link" href="account.html">Личный кабинет</a></li>
                     <li class="site-nav__item"><a class="site-nav__link" href="contacts.html">Контакты</a></li>
                 </ul>
@@ -85,9 +87,7 @@
 
             <section class="catalog-layout__products" aria-labelledby="courses-title">
                 <h2 id="courses-title">Все курсы</h2>
-                <p class="catalog-count" id="catalog-count" aria-live="polite"></p>
-                <p class="cart-counter" aria-live="polite">В корзине: 0</p>
-                <div class="products-grid" id="courses-list" data-products-container></div>
+                <p class="catalog-count" id="catalog-count" aria-live="polite"></p>                <div class="products-grid" id="courses-list" data-products-container></div>
                 <p class="catalog-empty" id="catalog-empty" hidden>По вашему запросу ничего не найдено. Измените поиск или сбросьте фильтры.</p>
             </section>
         </div>

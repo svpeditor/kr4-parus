@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/responsive.css">
     <script src="js/data.js" defer></script>
     <script src="js/utils.js" defer></script>
+    <script src="js/cart.js" defer></script>
     <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -28,6 +29,7 @@
                     <li class="site-nav__item"><a class="site-nav__link" href="fleet.html">Флот</a></li>
                     <li class="site-nav__item"><a class="site-nav__link" href="schedule.html">Расписание</a></li>
                     <li class="site-nav__item"><a class="site-nav__link" href="order.html">Заявка</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link" href="account.html#cart">Мои записи <span data-cart-count>(0)</span></a></li>
                     <li class="site-nav__item"><a class="site-nav__link site-nav__link--active" href="account.html" aria-current="page">Личный кабинет</a></li>
                     <li class="site-nav__item"><a class="site-nav__link" href="contacts.html">Контакты</a></li>
                 </ul>
@@ -163,44 +165,23 @@
 
         <section class="section" id="cart">
             <h2 class="section__title">Мои записи</h2>
-            <p class="section__text">Сюда попадает всё, что вы выбрали в каталоге, расписании и флоте. Количество можно менять, лишнее убрать.</p>
-            <table class="info-table table--cards">
-                <caption id="cart-caption">Выбранные курсы, выходы и аренда</caption>
-                <thead>
-                    <tr><th scope="col">Название</th><th scope="col">Тип</th><th scope="col">Количество</th><th scope="col">Цена</th><th scope="col">Сумма</th><th scope="col">Удалить</th></tr>
-                </thead>
-                <tbody>
-                    <tr data-cart="1" data-kind="course" data-price="12900">
-                        <td data-label="Название">Азы парусного спорта</td>
-                        <td data-label="Тип">Курс</td>
-                        <td data-label="Количество"><input class="form__input" id="cart-qty-1" name="qty" type="number" min="1" max="14" value="1" aria-label="Количество: Азы парусного спорта"></td>
-                        <td data-label="Цена">12 900 руб.</td>
-                        <td data-label="Сумма">12 900 руб.</td>
-                        <td class="info-table__action" data-label="Удалить"><button class="button button--secondary button--small" type="button" data-remove="1">Удалить</button></td>
-                    </tr>
-                    <tr data-cart="2" data-kind="trip" data-price="3200">
-                        <td data-label="Название">Закатный выход, 6 июня</td>
-                        <td data-label="Тип">Выход</td>
-                        <td data-label="Количество"><input class="form__input" id="cart-qty-2" name="qty" type="number" min="1" max="14" value="2" aria-label="Количество: Закатный выход, 6 июня"></td>
-                        <td data-label="Цена">3 200 руб.</td>
-                        <td data-label="Сумма">6 400 руб.</td>
-                        <td class="info-table__action" data-label="Удалить"><button class="button button--secondary button--small" type="button" data-remove="2">Удалить</button></td>
-                    </tr>
-                    <tr data-cart="3" data-kind="rent" data-price="5000">
-                        <td data-label="Название">Аренда яхты Ласточка</td>
-                        <td data-label="Тип">Аренда</td>
-                        <td data-label="Количество"><input class="form__input" id="cart-qty-3" name="qty" type="number" min="1" max="14" value="2" aria-label="Количество: Аренда яхты Ласточка"></td>
-                        <td data-label="Цена">5 000 руб.</td>
-                        <td data-label="Сумма">10 000 руб.</td>
-                        <td class="info-table__action" data-label="Удалить"><button class="button button--secondary button--small" type="button" data-remove="3">Удалить</button></td>
-                    </tr>
-                </tbody>
-            </table>
-            <p class="cart__total" id="cart-total">Итого: 29 300 руб.</p>
-            <div class="form__actions">
-                <a class="button button--primary" href="order.html#payment">Оформить и выбрать оплату</a>
-                <button class="button button--secondary" type="button" data-clear-cart>Очистить</button>
+            <p class="section__text">Сюда попадает всё, что вы выбрали в каталоге. Количество можно менять, лишнее убрать.</p>
+            <p class="catalog-empty" id="cart-empty" hidden>В записях пока ничего нет. Выберите курс в <a href="courses.html">каталоге</a>.</p>
+            <div id="cart-content">
+                <table class="info-table table--cards">
+                    <caption id="cart-caption">Выбранные курсы</caption>
+                    <thead>
+                        <tr><th scope="col">Название</th><th scope="col">Тип</th><th scope="col">Количество</th><th scope="col">Цена</th><th scope="col">Сумма</th><th scope="col">Удалить</th></tr>
+                    </thead>
+                    <tbody id="cart-body"></tbody>
+                </table>
+                <p class="cart__total" id="cart-total"></p>
+                <div class="form__actions">
+                    <a class="button button--primary" href="order.html#payment">Оформить и выбрать оплату</a>
+                    <button class="button button--secondary" type="button" data-clear-cart>Очистить</button>
+                </div>
             </div>
+            <p class="form__result" id="cart-message" aria-live="polite"></p>
         </section>
     </main>
 

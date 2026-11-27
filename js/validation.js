@@ -1,5 +1,5 @@
-// Проверка формы заявки на странице order.html.
-// Ошибки выводятся на страницу рядом с полями, alert() не используется.
+// Проверка форм: заявка на order.html, быстрая заявка в окне на главной, вопрос на contacts.html.
+// Ошибки выводятся на страницу рядом с полями, всплывающие окна alert не нужны.
 // Место для ошибки лежит в элементе с id "<id поля>-error", он уже связан с полем через aria-describedby.
 
 // Показать ошибку у поля: текст под полем и признак aria-invalid
@@ -28,6 +28,11 @@ function validateInput(input, getMessage) {
 
     clearError(input);
     return true;
+}
+
+// Пара "поле и его проверка" для списка проверок формы
+function createCheck(input, getMessage) {
+    return [input, () => validateInput(input, getMessage)];
 }
 
 function checkName(value) {
@@ -95,46 +100,38 @@ function checkDate(value) {
     return '';
 }
 
-const orderForm = document.querySelector('#order-form');
+function checkQuestion(value) {
+    if (value.trim().length < 10) {
+        return 'Опишите вопрос подробнее, не короче 10 символов.';
+    }
 
-if (orderForm) {
-    const itemSelect = orderForm.querySelector('#order-item');
-    const dateInput = orderForm.querySelector('#order-date');
-    const peopleInput = orderForm.querySelector('#order-people');
-    const nameInput = orderForm.querySelector('#order-name');
-    const phoneInput = orderForm.querySelector('#order-phone');
-    const emailInput = orderForm.querySelector('#order-email');
-    const agreeInput = orderForm.querySelector('#order-agree');
-    const formMessage = orderForm.querySelector('#order-result');
+    return '';
+}
 
-    function validateAgree() {
-        if (!agreeInput.checked) {
-            showError(agreeInput, 'Нужно согласие на обработку данных.');
+// Чекбокс согласия проверяется отдельно, у него нет value
+function createAgreeCheck(input) {
+    return [input, () => {
+        if (!input.checked) {
+            showError(input, 'Нужно согласие на обработку данных.');
             return false;
         }
 
-        clearError(agreeInput);
+        clearError(input);
         return true;
+    }];
+}
+
+// Общая часть для всех форм: проверка по кнопке, сообщения и сброс.
+// checks - список пар "поле и проверка", getSuccessText - функция, которая
+// вызывается при верных данных и возвращает текст сообщения об успехе.
+function setupForm(form, checks, messageElement, getSuccessText) {
+    function showMessage(text, isError) {
+        messageElement.textContent = text;
+        messageElement.classList.toggle('form__result--error', isError);
     }
 
-    // Каждая проверка вместе с полем, к которому она относится
-    const checks = [
-        [itemSelect, () => validateInput(itemSelect, checkItem)],
-        [dateInput, () => validateInput(dateInput, checkDate)],
-        [peopleInput, () => validateInput(peopleInput, checkPeople)],
-        [nameInput, () => validateInput(nameInput, checkName)],
-        [phoneInput, () => validateInput(phoneInput, checkPhone)],
-        [emailInput, () => validateInput(emailInput, checkEmail)],
-        [agreeInput, validateAgree]
-    ];
-
-    function showFormMessage(text, isError) {
-        formMessage.textContent = text;
-        formMessage.classList.toggle('form__result--error', isError);
-    }
-
-    orderForm.addEventListener('submit', (event) => {
-        // Отменяем стандартную отправку: сервера пока нет
+    form.addEventListener('submit', (event) => {
+        // Отменяем стандартную отправку: сервера нет, форму обрабатывает скрипт
         event.preventDefault();
 
         // Проверяем все поля сразу, чтобы пользователь увидел все ошибки
@@ -142,25 +139,16 @@ if (orderForm) {
         const isFormValid = results.every((result) => result);
 
         if (!isFormValid) {
-            showFormMessage('Проверьте поля формы.', true);
-            orderForm.querySelector('[aria-invalid="true"]').focus();
+            showMessage('Проверьте поля формы.', true);
+            form.querySelector('[aria-invalid="true"]').focus();
             return;
         }
 
-        const requestData = {
-            item: itemSelect.value,
-            date: dateInput.value,
-            people: Number(peopleInput.value),
-            name: nameInput.value.trim(),
-            phone: phoneInput.value.trim(),
-            email: emailInput.value.trim()
-        };
+        // Текст читаем до очистки формы, потому что reset стирает и сообщение
+        const successText = getSuccessText();
 
-        console.table(requestData);
-
-        // Сначала очищаем форму, потом пишем сообщение: reset стирает сообщение
-        orderForm.reset();
-        showFormMessage('Заявка подготовлена. Данные выведены в консоль.', false);
+        form.reset();
+        showMessage(successText, false);
     });
 
     // Ошибка пропадает, как только поле исправлено
@@ -173,8 +161,92 @@ if (orderForm) {
         });
     });
 
-    orderForm.addEventListener('reset', () => {
+    form.addEventListener('reset', () => {
         checks.forEach(([input]) => clearError(input));
-        showFormMessage('', false);
+        showMessage('', false);
+    });
+}
+
+// Заявка на странице order.html
+const orderForm = document.querySelector('#order-form');
+
+if (orderForm) {
+    const itemSelect = orderForm.querySelector('#order-item');
+    const dateInput = orderForm.querySelector('#order-date');
+    const peopleInput = orderForm.querySelector('#order-people');
+    const nameInput = orderForm.querySelector('#order-name');
+    const phoneInput = orderForm.querySelector('#order-phone');
+    const emailInput = orderForm.querySelector('#order-email');
+    const agreeInput = orderForm.querySelector('#order-agree');
+
+    // Если пришли по кнопке "Записаться", в адресе есть ?course=3, ?trip=5 или ?rent=2
+    const params = new URLSearchParams(window.location.search);
+
+    ['course', 'trip', 'rent'].forEach((kind) => {
+        if (!params.has(kind)) {
+            return;
+        }
+
+        const value = `${kind}-${params.get(kind)}`;
+        const hasOption = Array.from(itemSelect.options).some((option) => option.value === value);
+
+        if (hasOption) {
+            itemSelect.value = value;
+        }
+    });
+
+    const checks = [
+        createCheck(itemSelect, checkItem),
+        createCheck(dateInput, checkDate),
+        createCheck(peopleInput, checkPeople),
+        createCheck(nameInput, checkName),
+        createCheck(phoneInput, checkPhone),
+        createCheck(emailInput, checkEmail),
+        createAgreeCheck(agreeInput)
+    ];
+
+    setupForm(orderForm, checks, orderForm.querySelector('#order-result'), () => {
+        const itemName = itemSelect.options[itemSelect.selectedIndex].textContent;
+
+        return `Заявка подготовлена: ${itemName}. Мы позвоним по номеру ${phoneInput.value.trim()} и подтвердим дату.`;
+    });
+}
+
+// Быстрая заявка в модальном окне на главной
+const quickForm = document.querySelector('#quick-form');
+
+if (quickForm) {
+    const quickName = quickForm.querySelector('#quick-name');
+    const quickPhone = quickForm.querySelector('#quick-phone');
+    const quickInterest = quickForm.querySelector('#quick-interest');
+
+    const checks = [
+        createCheck(quickName, checkName),
+        createCheck(quickPhone, checkPhone)
+    ];
+
+    setupForm(quickForm, checks, quickForm.querySelector('#quick-result'), () => {
+        const interest = quickInterest.options[quickInterest.selectedIndex].textContent.toLowerCase();
+
+        return `Спасибо, ${quickName.value.trim()}. Мы перезвоним по номеру ${quickPhone.value.trim()} Вас интересует: ${interest}.`;
+    });
+}
+
+// Вопрос инструктору на странице контактов
+const questionForm = document.querySelector('#question-form');
+
+if (questionForm) {
+    const questionName = questionForm.querySelector('#question-name');
+    const questionEmail = questionForm.querySelector('#question-email');
+    const questionText = questionForm.querySelector('#question-text');
+
+    const checks = [
+        createCheck(questionName, checkName),
+        createCheck(questionEmail, checkEmail),
+        createCheck(questionText, checkQuestion)
+    ];
+
+    setupForm(questionForm, checks, questionForm.querySelector('#question-result'), () => {
+        return `Вопрос отправлен. Инструктор ответит на адрес ${questionEmail.value.trim()}.`;
     });
 }
