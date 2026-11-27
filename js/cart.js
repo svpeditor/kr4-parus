@@ -121,19 +121,30 @@ function getOptionTitles(item) {
         .map((option) => option.title.toLowerCase());
 }
 
-// Достаём корзину из хранилища. Берём только позиции, для которых есть запись в data.js,
-// и добавляем недостающие поля, потому что данные в localStorage можно изменить вручную.
+// Целое число больше нуля или 1
+function toPositiveInteger(value) {
+    return Number.isInteger(value) && value > 0 ? value : 1;
+}
+
+// Достаём корзину из хранилища. Данные в localStorage можно изменить вручную в DevTools,
+// поэтому берём только позиции, для которых есть запись в data.js, и приводим поля к нормальному виду.
 function getCart() {
     return readStorage(CART_KEY, [])
-        .map((item) => ({
-            kind: item.kind,
-            id: item.id,
-            qty: item.qty,
-            people: item.people || 1,
-            captain: Boolean(item.captain),
-            options: item.options || []
-        }))
-        .filter((item) => ['course', 'trip', 'rent'].includes(item.kind) && getItemSource(item));
+        .filter((item) => ['course', 'trip', 'rent'].includes(item.kind) && getItemSource(item))
+        .map((item) => {
+            const cartItem = {
+                kind: item.kind,
+                id: item.id,
+                qty: toPositiveInteger(item.qty),
+                people: toPositiveInteger(item.people),
+                captain: Boolean(item.captain),
+                options: Array.isArray(item.options) ? item.options.filter((key) => extraOptions.some((option) => option.key === key)) : []
+            };
+
+            cartItem.qty = Math.min(cartItem.qty, getItemMaxQty(cartItem));
+
+            return cartItem;
+        });
 }
 
 function saveCart(cart) {
