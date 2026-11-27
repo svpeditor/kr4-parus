@@ -830,3 +830,47 @@ display: none не используем, иначе до неё нельзя д�
 .status:empty {
     display: none;
 }
+
+/* ===============================
+14. Калькулятор, тест, сравнение яхт
+=============================== */
+
+/* Строки расчёта в калькуляторе */
+.calc__lines {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 15px;
+}
+
+/* Ответ теста: рекомендованный курс */
+.quiz__answer {
+    margin-top: var(--space-md);
+    padding: var(--space-md);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+.quiz__answer h3 {
+    margin-bottom: var(--space-sm);
+}
+
+/* Результат сравнения яхт: лучшие значения выделены */
+.compare__result .table-wrapper {
+    margin-bottom: 0;
+}
+
+.compare-table__best {
+    font-weight: bold;
+    background-color: var(--color-surface-accent);
+}
+
+/* Текст только для программ чтения с экрана */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}

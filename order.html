@@ -15,6 +15,7 @@
     <script src="js/validation.js" defer></script>
     <script src="js/account.js" defer></script>
     <script src="js/order.js" defer></script>
+    <script src="js/calculator.js" defer></script>
     <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -204,7 +205,7 @@
 
                 <section class="calc" id="calc" aria-labelledby="calc-title">
                     <h2 id="calc-title">Калькулятор стоимости</h2>
-                    <form class="form" id="calc-form" action="order.html#calc" method="get">
+                    <form class="form" id="calc-form" novalidate>
                         <div class="form__group">
                             <label class="form__label" for="calc-kind">Что нужно</label>
                             <select class="form__select" id="calc-kind" name="kind" aria-describedby="calc-kind-error">
@@ -216,25 +217,6 @@
                         <div class="form__group">
                             <label class="form__label" for="calc-item">Что считаем</label>
                             <select class="form__select" id="calc-item" name="item" aria-describedby="calc-item-error">
-                                <optgroup label="Курсы">
-                                    <option value="course-1" data-price="12900">Азы парусного спорта, 12 900 руб.</option>
-                                    <option value="course-2" data-price="8500">Интенсив на выходные, 8 500 руб.</option>
-                                    <option value="course-3" data-price="3200">Занятие на лодке Лазер, 3 200 руб.</option>
-                                    <option value="course-4" data-price="36000">Шкипер-прибрежник, 36 000 руб.</option>
-                                    <option value="course-5" data-price="14500">Навигация и работа с картой, 14 500 руб.</option>
-                                    <option value="course-6" data-price="9800">Швартовка и управление под мотором, 9 800 руб.</option>
-                                    <option value="course-7" data-price="9500">Детская группа 7-10 лет, 9 500 руб.</option>
-                                    <option value="course-8" data-price="11000">Юный капитан 11-14 лет, 11 000 руб.</option>
-                                    <option value="course-9" data-price="15000">Подготовка к клубной регате, 15 000 руб.</option>
-                                    <option value="course-10" data-price="17500">Тактика гонки и работа экипажа, 17 500 руб.</option>
-                                </optgroup>
-                                <optgroup label="Аренда яхты">
-                                    <option value="rent-2" data-price-capt="3500" data-price-free="2500">Лазер</option>
-                                    <option value="rent-3" data-price-capt="4500" data-price-free="3800">Летучий голландец</option>
-                                    <option value="rent-4" data-price-capt="6500" data-price-free="5000">Ласточка</option>
-                                    <option value="rent-5" data-price-capt="12000" data-price-free="9500">Ветер</option>
-                                    <option value="rent-6" data-price-capt="16000" data-price-free="13000">Заря</option>
-                                </optgroup>
                             </select>
                             <p class="form__error" id="calc-item-error"></p>
                         </div>
@@ -245,7 +227,7 @@
                                 <p class="form__error" id="calc-people-error"></p>
                             </div>
                             <div class="form__group">
-                                <label class="form__label" for="calc-days">Дней</label>
+                                <label class="form__label" for="calc-days">Дней или занятий</label>
                                 <input class="form__input" id="calc-days" name="days" type="number" min="1" max="14" value="1" aria-describedby="calc-days-error">
                                 <p class="form__error" id="calc-days-error"></p>
                             </div>
@@ -269,8 +251,12 @@
                                 <label for="calc-opt-insurance">Страховка, 300 руб. на человека</label>
                             </div>
                         </fieldset>
-                        <button class="button button--primary" type="submit">Рассчитать</button>
+                        <ul class="calc__lines" id="calc-lines" aria-live="polite"></ul>
                         <p class="calc__result" id="calc-result" aria-live="polite">Итого: <strong id="calc-total">0 руб.</strong></p>
+                        <div class="form__actions">
+                            <button class="button button--primary" type="submit">Рассчитать</button>
+                            <button class="button button--secondary" type="button" id="calc-add">В мои записи</button>
+                        </div>
                     </form>
                 </section>
             </aside>

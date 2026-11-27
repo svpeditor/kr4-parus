@@ -183,3 +183,29 @@ function formatOutingDate(outing) {
 function formatMeters(value) {
     return `${String(value).replace('.', ',')} м`;
 }
+
+// Картинка курса или лодки: WebP с запасным JPG и два размера, 480px и 800px
+function createProductPicture(item, pictureClass, imageClass, sizes, isLazy) {
+    const picture = makeElement('picture', pictureClass);
+    const source = document.createElement('source');
+    const image = makeElement('img', imageClass);
+
+    source.type = 'image/webp';
+    source.srcset = `images/${item.image}-480.webp 480w, images/${item.image}.webp 800w`;
+    source.sizes = sizes;
+
+    image.src = `images/${item.image}.jpg`;
+    image.srcset = `images/${item.image}-480.jpg 480w, images/${item.image}.jpg 800w`;
+    image.sizes = sizes;
+    image.width = 800;
+    image.height = 600;
+    image.alt = item.imageAlt;
+
+    if (isLazy) {
+        image.loading = 'lazy';
+    }
+
+    picture.append(source, image);
+
+    return picture;
+}
