@@ -10,7 +10,10 @@
     <link rel="stylesheet" href="css/responsive.css">
     <script src="js/data.js" defer></script>
     <script src="js/utils.js" defer></script>
+    <script src="js/notify.js" defer></script>
     <script src="js/cart.js" defer></script>
+    <script src="js/validation.js" defer></script>
+    <script src="js/account.js" defer></script>
     <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -45,7 +48,7 @@
             <div class="auth">
                 <section class="auth__box" aria-labelledby="login-title">
                     <h2 id="login-title">Вход</h2>
-                    <form class="form" id="login-form" action="account.html" method="get">
+                    <form class="form" id="login-form" novalidate>
                         <div class="form__group">
                             <label class="form__label" for="login-name">Логин <span class="form__required" aria-hidden="true">*</span></label>
                             <input class="form__input" id="login-name" name="login" type="text" required autocomplete="username" aria-describedby="login-name-error">
@@ -56,12 +59,14 @@
                             <input class="form__input" id="login-password" type="password" required autocomplete="current-password" aria-describedby="login-password-error">
                             <p class="form__error" id="login-password-error"></p>
                         </div>
+                        <p class="form__note">Для проверки есть готовый пользователь: логин demo, пароль parus123.</p>
                         <button class="button button--primary" type="submit">Войти</button>
+                        <div class="form__result" id="login-result" aria-live="polite"></div>
                     </form>
                 </section>
                 <section class="auth__box" aria-labelledby="register-title">
                     <h2 id="register-title">Регистрация</h2>
-                    <form class="form" id="register-form" action="account.html" method="get">
+                    <form class="form" id="register-form" novalidate>
                         <div class="form__group">
                             <label class="form__label" for="reg-name">Логин <span class="form__required" aria-hidden="true">*</span></label>
                             <input class="form__input" id="reg-name" name="login" type="text" required autocomplete="username" aria-describedby="reg-name-hint reg-name-error">
@@ -85,81 +90,46 @@
                             <p class="form__error" id="reg-password2-error"></p>
                         </div>
                         <button class="button button--primary" type="submit">Зарегистрироваться</button>
+                        <div class="form__result" id="register-result" aria-live="polite"></div>
                     </form>
                 </section>
             </div>
         </section>
 
+        <section class="section" id="account-user" aria-labelledby="account-user-title" hidden>
+            <h2 class="section__title" id="account-user-title">Вы вошли в кабинет</h2>
+            <div class="aside-box">
+                <p>Логин: <strong id="account-login"></strong></p>
+                <p>E-mail: <span id="account-email"></span></p>
+                <button class="button button--secondary" type="button" data-logout>Выйти</button>
+            </div>
+        </section>
+
         <section class="section" id="status">
             <h2 class="section__title">Статус заявки по номеру</h2>
-            <form class="form" id="status-form" action="account.html" method="get">
+            <form class="form" id="status-form" novalidate>
                 <div class="form__group">
                     <label class="form__label" for="status-number">Номер заявки <span class="form__required" aria-hidden="true">*</span></label>
                     <input class="form__input" id="status-number" name="number" type="number" required min="1" aria-describedby="status-number-hint status-number-error">
-                    <p class="form__note" id="status-number-hint">Номер приходит после отправки заявки, например 1024</p>
+                    <p class="form__note" id="status-number-hint">Номер приходит после отправки заявки. Для примера есть заявки 1024, 1019, 1015 и 1008</p>
                     <p class="form__error" id="status-number-error"></p>
                 </div>
                 <div class="form__actions">
                     <button class="button button--primary" type="submit">Узнать статус</button>
                 </div>
             </form>
-            <div class="status" id="status-result" aria-live="polite">
-                <p class="form__note">Пример ответа для заявки 1024</p>
-                <h3>Заявка 1024</h3>
-                <dl class="course__facts">
-                    <dt>Что</dt>
-                    <dd>Азы парусного спорта</dd>
-                    <dt>Дата</dt>
-                    <dd>сб, 5 июня, 10:00</dd>
-                    <dt>Статус</dt>
-                    <dd><span class="badge badge--wait">Подтверждена, ждёт оплаты</span></dd>
-                </dl>
-                <ol class="status-steps">
-                    <li class="status-steps__item status-steps__item--done">Принята</li>
-                    <li class="status-steps__item status-steps__item--current">Подтверждена</li>
-                    <li class="status-steps__item">Оплачена</li>
-                    <li class="status-steps__item">Выполнена</li>
-                </ol>
-            </div>
+            <div class="status" id="status-result" aria-live="polite"></div>
         </section>
 
         <section class="section" id="orders">
             <h2 class="section__title">Мои заявки</h2>
-            <table class="info-table table--cards">
+            <p class="catalog-empty" id="orders-empty"></p>
+            <table class="info-table table--cards" id="orders-table" hidden>
                 <caption id="orders-caption">Список ваших заявок</caption>
                 <thead>
-                    <tr><th scope="col">Номер</th><th scope="col">Что</th><th scope="col">Дата</th><th scope="col">Сумма</th><th scope="col">Статус</th></tr>
+                    <tr><th scope="col">Номер</th><th scope="col">Что</th><th scope="col">Дата</th><th scope="col">Сумма</th><th scope="col">Статус</th><th scope="col">Действие</th></tr>
                 </thead>
-                <tbody>
-                    <tr data-order="1024">
-                        <td data-label="Номер">1024</td>
-                        <td data-label="Что">Азы парусного спорта</td>
-                        <td data-label="Дата">5 июня</td>
-                        <td data-label="Сумма">12 900 руб.</td>
-                        <td data-label="Статус"><span class="badge badge--wait">Подтверждена</span></td>
-                    </tr>
-                    <tr data-order="1019">
-                        <td data-label="Номер">1019</td>
-                        <td data-label="Что">Выход на яхте, 4 часа</td>
-                        <td data-label="Дата">29 мая</td>
-                        <td data-label="Сумма">2 800 руб.</td>
-                        <td data-label="Статус"><span class="badge badge--ok">Выполнена</span></td>
-                    </tr>
-                    <tr data-order="1015">
-                        <td data-label="Номер">1015</td>
-                        <td data-label="Что">Аренда яхты Ласточка, 2 дня</td>
-                        <td data-label="Дата">22 мая</td>
-                        <td data-label="Сумма">10 000 руб.</td>
-                        <td data-label="Статус"><span class="badge badge--ok">Оплачена</span></td>
-                    </tr>
-                    <tr data-order="1008">
-                        <td data-label="Номер">1008</td>
-                        <td data-label="Что">Занятие на лодке Лазер</td>
-                        <td data-label="Дата">15 мая</td>
-                        <td data-label="Сумма">3 200 руб.</td>
-                        <td data-label="Статус"><span class="badge badge--closed">Отменена</span></td>
-                    </tr>
-                </tbody>
+                <tbody id="orders-body"></tbody>
             </table>
         </section>
 

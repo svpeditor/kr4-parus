@@ -241,3 +241,320 @@ const products = [
         ]
     }
 ];
+
+// Выходы под парусом, открытые занятия, регаты и детские группы на июнь 2027 года.
+// type: trip - выход, lesson - открытое занятие, regatta - регата, kids - детская группа;
+// seats - всего мест, free - свободно мест (0 - мест нет, можно встать в лист ожидания).
+const outingTypeNames = {
+    trip: 'Выход под парусом',
+    lesson: 'Открытое занятие',
+    regatta: 'Регата',
+    kids: 'Детская группа'
+};
+
+const outings = [
+    {
+        id: 1,
+        date: '2027-06-05',
+        time: '10:00',
+        type: 'trip',
+        title: 'Выход на яхте, 4 часа',
+        boat: 'Ветер',
+        seats: 6,
+        free: 3,
+        price: 2800
+    },
+    {
+        id: 2,
+        date: '2027-06-05',
+        time: '15:00',
+        type: 'lesson',
+        title: 'Пробное занятие для новичков',
+        boat: 'Ласточка',
+        seats: 4,
+        free: 4,
+        price: 1500
+    },
+    {
+        id: 3,
+        date: '2027-06-06',
+        time: '11:00',
+        type: 'kids',
+        title: 'Детская группа 7-10 лет',
+        boat: 'Оптимист',
+        seats: 8,
+        free: 2,
+        price: 1200
+    },
+    {
+        id: 4,
+        date: '2027-06-06',
+        time: '17:00',
+        type: 'trip',
+        title: 'Закатный выход',
+        boat: 'Ветер',
+        seats: 6,
+        free: 0,
+        price: 3200
+    },
+    {
+        id: 5,
+        date: '2027-06-12',
+        time: '10:00',
+        type: 'regatta',
+        title: 'Клубная регата, 1 этап',
+        boat: 'Заря и Ветер',
+        seats: 14,
+        free: 5,
+        price: 1500
+    },
+    {
+        id: 6,
+        date: '2027-06-12',
+        time: '17:00',
+        type: 'trip',
+        title: 'Выход на малой яхте',
+        boat: 'Ласточка',
+        seats: 4,
+        free: 1,
+        price: 2500
+    },
+    {
+        id: 7,
+        date: '2027-06-13',
+        time: '10:00',
+        type: 'lesson',
+        title: 'Пробное занятие на лодке Лазер',
+        boat: 'Лазер',
+        seats: 2,
+        free: 2,
+        price: 1800
+    },
+    {
+        id: 8,
+        date: '2027-06-13',
+        time: '12:00',
+        type: 'kids',
+        title: 'Детская группа 11-14 лет',
+        boat: 'Оптимист',
+        seats: 8,
+        free: 3,
+        price: 1200
+    },
+    {
+        id: 9,
+        date: '2027-06-19',
+        time: '10:00',
+        type: 'trip',
+        title: 'Выход на яхте, 6 часов',
+        boat: 'Ветер',
+        seats: 6,
+        free: 5,
+        price: 3500
+    },
+    {
+        id: 10,
+        date: '2027-06-20',
+        time: '11:00',
+        type: 'regatta',
+        title: 'Клубная регата, 2 этап',
+        boat: 'Заря и Ветер',
+        seats: 14,
+        free: 3,
+        price: 1500
+    },
+    {
+        id: 11,
+        date: '2027-06-26',
+        time: '10:00',
+        type: 'lesson',
+        title: 'Пробное занятие для новичков',
+        boat: 'Ласточка',
+        seats: 4,
+        free: 3,
+        price: 1500
+    },
+    {
+        id: 12,
+        date: '2027-06-27',
+        time: '16:00',
+        type: 'trip',
+        title: 'Закатный выход',
+        boat: 'Ветер',
+        seats: 6,
+        free: 4,
+        price: 3200
+    }
+];
+
+// Лодки и яхты клуба. Размеры в метрах, площадь паруса в квадратных метрах.
+// rentCapt и rentFree - цена аренды за день с капитаном и без капитана, 0 - в аренду не сдаётся.
+const boats = [
+    {
+        id: 1,
+        name: 'Оптимист',
+        kind: 'Детская парусная лодка',
+        length: 2.3,
+        beam: 1.1,
+        crew: 1,
+        berths: 0,
+        sail: 3.3,
+        draft: 0.7,
+        rentCapt: 0,
+        rentFree: 0,
+        image: 'optimist-pair',
+        imageAlt: 'Две детские лодки с белыми парусами на спокойной воде',
+        description: 'Лодка для детской группы. В аренду не сдаётся, на ней идут занятия.'
+    },
+    {
+        id: 2,
+        name: 'Лазер',
+        kind: 'Одиночная спортивная лодка',
+        length: 4.2,
+        beam: 1.4,
+        crew: 1,
+        berths: 0,
+        sail: 7.1,
+        draft: 0.8,
+        rentCapt: 3500,
+        rentFree: 2500,
+        image: 'laser',
+        imageAlt: 'Спортсмен на одиночной лодке с красным парусом',
+        description: 'Быстрая лодка для одного человека. Без инструктора сдаём после проверки навыков.'
+    },
+    {
+        id: 3,
+        name: 'Летучий голландец',
+        kind: 'Гоночная лодка для двоих',
+        length: 6.05,
+        beam: 1.7,
+        crew: 2,
+        berths: 0,
+        sail: 16,
+        draft: 1.1,
+        rentCapt: 4500,
+        rentFree: 3800,
+        image: 'regatta-fd',
+        imageAlt: 'Три гоночные лодки с белыми парусами идут по дистанции',
+        description: 'Лодка для экипажа из двух человек. На ней идут занятия регатной группы.'
+    },
+    {
+        id: 4,
+        name: 'Ласточка',
+        kind: 'Малая яхта',
+        length: 6.5,
+        beam: 2.4,
+        crew: 4,
+        berths: 2,
+        sail: 22,
+        draft: 1.1,
+        rentCapt: 6500,
+        rentFree: 5000,
+        image: 'small-sloop',
+        imageAlt: 'Небольшая белая яхта на воде у берега',
+        description: 'Устойчивая яхта для первых выходов с семьёй или друзьями. Есть небольшая каюта.'
+    },
+    {
+        id: 5,
+        name: 'Ветер',
+        kind: 'Прогулочная яхта',
+        length: 9.5,
+        beam: 3.1,
+        crew: 6,
+        berths: 4,
+        sail: 48,
+        draft: 1.6,
+        rentCapt: 12000,
+        rentFree: 9500,
+        image: 'cruiser-b',
+        imageAlt: 'Прогулочная яхта идёт под парусами',
+        description: 'Основная яхта клуба для выходов на день. Каюта, мотор, камбуз.'
+    },
+    {
+        id: 6,
+        name: 'Заря',
+        kind: 'Гоночная яхта',
+        length: 11,
+        beam: 3.3,
+        crew: 8,
+        berths: 4,
+        sail: 70,
+        draft: 2,
+        rentCapt: 16000,
+        rentFree: 13000,
+        image: 'racer-red',
+        imageAlt: 'Гоночная яхта с красным спинакером',
+        description: 'Быстрая яхта для регат. Без капитана сдаём только шкиперам клуба.'
+    }
+];
+
+// Дополнительные услуги в калькуляторе и корзине.
+// per: day - за каждый день или занятие, person - за каждого человека, once - один раз.
+const extraOptions = [
+    { key: 'gear', title: 'Гидрокостюм и жилет', price: 500, per: 'day' },
+    { key: 'photo', title: 'Фото и видео с воды', price: 1000, per: 'once' },
+    { key: 'insurance', title: 'Страховка', price: 300, per: 'person' }
+];
+
+// Шаги заявки и время, через которое статус меняется (в секундах).
+// Сервера нет, поэтому работу администратора и банка показывает таймер.
+const orderSteps = ['Принята', 'Подтверждена', 'Оплачена', 'Выполнена'];
+const statusDelays = { confirm: 20, pay: 40 };
+
+// Пользователь и заявки для проверки личного кабинета. Кладутся в localStorage при первом запуске.
+const demoUser = {
+    login: 'demo',
+    email: 'demo@parus-club.example',
+    password: 'parus123'
+};
+
+const demoOrders = [
+    {
+        id: 1024,
+        login: 'demo',
+        createdAt: Date.UTC(2026, 10, 20, 12, 0),
+        title: 'Азы парусного спорта',
+        items: [{ kind: 'course', id: 1, qty: 1, people: 1, captain: false, options: [] }],
+        total: 11610,
+        payment: 'cash',
+        paymentNote: '',
+        date: '2027-06-05',
+        status: 'Подтверждена'
+    },
+    {
+        id: 1019,
+        login: 'demo',
+        createdAt: Date.UTC(2026, 10, 12, 9, 30),
+        title: 'Выход на яхте, 4 часа, сб, 5 июня, 10:00',
+        items: [{ kind: 'trip', id: 1, qty: 1, people: 1, captain: false, options: [] }],
+        total: 2800,
+        payment: 'card',
+        paymentNote: '**** 4242',
+        date: '2027-06-05',
+        status: 'Выполнена'
+    },
+    {
+        id: 1015,
+        login: 'demo',
+        createdAt: Date.UTC(2026, 10, 5, 15, 10),
+        title: 'Аренда яхты Ласточка, без капитана',
+        items: [{ kind: 'rent', id: 4, qty: 2, people: 2, captain: false, options: [] }],
+        total: 10000,
+        payment: 'sbp',
+        paymentNote: '+7 999 765-43-21',
+        date: '2027-06-12',
+        status: 'Оплачена'
+    },
+    {
+        id: 1008,
+        login: 'demo',
+        createdAt: Date.UTC(2026, 9, 28, 18, 45),
+        title: 'Занятие на лодке Лазер',
+        items: [{ kind: 'course', id: 3, qty: 1, people: 1, captain: false, options: [] }],
+        total: 3200,
+        payment: 'cash',
+        paymentNote: '',
+        date: '2027-06-13',
+        status: 'Отменена'
+    }
+];

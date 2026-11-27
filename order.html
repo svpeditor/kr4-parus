@@ -10,8 +10,11 @@
     <link rel="stylesheet" href="css/responsive.css">
     <script src="js/data.js" defer></script>
     <script src="js/utils.js" defer></script>
+    <script src="js/notify.js" defer></script>
     <script src="js/cart.js" defer></script>
     <script src="js/validation.js" defer></script>
+    <script src="js/account.js" defer></script>
+    <script src="js/order.js" defer></script>
     <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -53,39 +56,6 @@
                                 <label class="form__label" for="order-item">Курс, выход или аренда <span class="form__required" aria-hidden="true">*</span></label>
                                 <select class="form__select" id="order-item" name="item" required aria-describedby="order-item-error">
                                     <option value="">Выберите из списка</option>
-                                    <optgroup label="Курсы">
-                                        <option value="course-1">Азы парусного спорта, 12 900 руб.</option>
-                                        <option value="course-2">Интенсив на выходные, 8 500 руб.</option>
-                                        <option value="course-3">Занятие на лодке Лазер, 3 200 руб.</option>
-                                        <option value="course-4">Шкипер-прибрежник, 36 000 руб.</option>
-                                        <option value="course-5">Навигация и работа с картой, 14 500 руб.</option>
-                                        <option value="course-6">Швартовка и управление под мотором, 9 800 руб.</option>
-                                        <option value="course-7">Детская группа 7-10 лет, 9 500 руб.</option>
-                                        <option value="course-8">Юный капитан 11-14 лет, 11 000 руб.</option>
-                                        <option value="course-9">Подготовка к клубной регате, 15 000 руб.</option>
-                                        <option value="course-10">Тактика гонки и работа экипажа, 17 500 руб.</option>
-                                    </optgroup>
-                                    <optgroup label="Выходы">
-                                        <option value="trip-1">5 июня, 10:00, Выход на яхте, 4 часа</option>
-                                        <option value="trip-2">5 июня, 15:00, Пробное занятие для новичков</option>
-                                        <option value="trip-3">6 июня, 11:00, Детская группа 7-10 лет</option>
-                                        <option value="trip-4">6 июня, 17:00, Закатный выход</option>
-                                        <option value="trip-5">12 июня, 10:00, Клубная регата, 1 этап</option>
-                                        <option value="trip-6">12 июня, 17:00, Выход на малой яхте</option>
-                                        <option value="trip-7">13 июня, 10:00, Пробное занятие на лодке Лазер</option>
-                                        <option value="trip-8">13 июня, 12:00, Детская группа 11-14 лет</option>
-                                        <option value="trip-9">19 июня, 10:00, Выход на яхте, 6 часов</option>
-                                        <option value="trip-10">20 июня, 11:00, Клубная регата, 2 этап</option>
-                                        <option value="trip-11">26 июня, 10:00, Пробное занятие для новичков</option>
-                                        <option value="trip-12">27 июня, 16:00, Закатный выход</option>
-                                    </optgroup>
-                                    <optgroup label="Аренда яхты">
-                                        <option value="rent-2">Лазер</option>
-                                        <option value="rent-3">Летучий голландец</option>
-                                        <option value="rent-4">Ласточка</option>
-                                        <option value="rent-5">Ветер</option>
-                                        <option value="rent-6">Заря</option>
-                                    </optgroup>
                                 </select>
                                 <p class="form__error" id="order-item-error"></p>
                             </div>
@@ -113,6 +83,8 @@
                                     <label for="order-captain">С капитаном (для аренды)</label>
                                 </div>
                             </div>
+                            <p class="order-summary" id="order-total" aria-live="polite"></p>
+                            <p class="form__note" id="order-note" aria-live="polite"></p>
                         </div>
                     </fieldset>
 
@@ -165,7 +137,8 @@
                                 <p class="payment-block__title">Оплата картой</p>
                                 <div class="form__group">
                                     <label class="form__label" for="pay-card-number">Номер карты <span class="form__required" aria-hidden="true">*</span></label>
-                                    <input class="form__input" id="pay-card-number" type="text" required autocomplete="cc-number" inputmode="numeric" maxlength="19" placeholder="0000 0000 0000 0000" aria-describedby="pay-card-number-error">
+                                    <input class="form__input" id="pay-card-number" type="text" required autocomplete="cc-number" inputmode="numeric" maxlength="19" placeholder="0000 0000 0000 0000" aria-describedby="pay-card-number-hint pay-card-number-error">
+                                    <p class="form__note" id="pay-card-number-hint">Учебный сайт, платёж не проводится, данные карты не сохраняются. Для проверки подойдёт карта 4111 1111 1111 1111, срок 12/30, код 123.</p>
                                     <p class="form__error" id="pay-card-number-error"></p>
                                 </div>
                                 <div class="form__row">
@@ -199,7 +172,7 @@
 
                             <div class="form payment-block" data-payment="cash">
                                 <p class="payment-block__title">Оплата на месте</p>
-                                <p>Платите в клубе перед выходом наличными или картой. Бронь держим 24 часа, потом место освобождается.</p>
+                                <p>Платите в клубе перед выходом наличными или картой. Бронь держим 24 часа, потом место освобождается. Дополнительных полей здесь нет.</p>
                             </div>
                         </div>
                     </fieldset>
@@ -214,6 +187,7 @@
                         <button class="button button--secondary" type="reset">Очистить форму</button>
                     </div>
                     <div class="form__result" id="order-result" aria-live="polite"></div>
+                    <p><a class="button button--secondary" id="order-status-link" href="account.html#status" hidden>Узнать статус заявки</a></p>
                 </form>
             </div>
 

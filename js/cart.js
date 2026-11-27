@@ -1,17 +1,139 @@
-// Корзина "Мои записи": список выбранных курсов хранится в localStorage,
-// сумма считается через reduce. Файл подключён на всех страницах, потому что
-// счётчик записей стоит в меню, а таблица корзины есть только в личном кабинете.
+// Корзина "Мои записи" и расчёт стоимости записей. Список хранится в localStorage,
+// суммы считаются через reduce. Файл подключён на всех страницах, потому что счётчик
+// записей стоит в меню, а таблица корзины есть только в личном кабинете.
 
 const CART_KEY = 'parus_cart';
 const MAX_QTY = 8;
+const MAX_DAYS = 14;
 
-// Позиция корзины: { kind: 'course', id: 1, qty: 2 }.
-// kind - вид записи, пока в корзину попадают только курсы.
+// Позиция корзины и заявки:
+// { kind: 'course', id: 1, qty: 2, people: 2, captain: false, options: ['gear'] }
+// kind - вид записи: course (курс), trip (выход) или rent (аренда яхты);
+// qty - сколько: человек для курса и выхода, дней для аренды;
+// people и captain - число человек и капитан для аренды, options - ключи из extraOptions.
+
+// Запись из data.js, на которую ссылается позиция: курс, выход или лодка
+function getItemSource(item) {
+    if (item.kind === 'course') {
+        return findProductById(products, item.id);
+    }
+
+    if (item.kind === 'trip') {
+        return findProductById(outings, item.id);
+    }
+
+    return findProductById(boats, item.id);
+}
+
+function getItemTitle(item) {
+    const source = getItemSource(item);
+
+    if (item.kind === 'course') {
+        return source.title;
+    }
+
+    if (item.kind === 'trip') {
+        return `${source.title}, ${formatOutingDate(source)}`;
+    }
+
+    return `Аренда яхты ${source.name}, ${item.captain ? 'с капитаном' : 'без капитана'}`;
+}
+
+function getItemTypeName(item) {
+    const names = { course: 'Курс', trip: 'Выход', rent: 'Аренда' };
+
+    return names[item.kind];
+}
+
+// Единица измерения для количества
+function getItemUnit(item) {
+    const units = { course: 'чел.', trip: 'мест', rent: 'дн.' };
+
+    return units[item.kind];
+}
+
+// Цена за единицу: курс со скидкой, место на выходе или день аренды
+function getItemUnitPrice(item) {
+    const source = getItemSource(item);
+
+    if (item.kind === 'course') {
+        return calculateFinalPrice(source.price, source.discountPercent);
+    }
+
+    if (item.kind === 'trip') {
+        return source.price;
+    }
+
+    return item.captain ? source.rentCapt : source.rentFree;
+}
+
+// Сколько единиц можно взять: на выходе не больше свободных мест
+function getItemMaxQty(item) {
+    if (item.kind === 'trip') {
+        return Math.max(getItemSource(item).free, 1);
+    }
+
+    return item.kind === 'rent' ? MAX_DAYS : MAX_QTY;
+}
+
+function getItemPeople(item) {
+    return item.kind === 'rent' ? item.people : item.qty;
+}
+
+// Дней для услуги "за день": дни аренды, число занятий курса или один день выхода
+function getItemDays(item) {
+    if (item.kind === 'rent') {
+        return item.qty;
+    }
+
+    return item.kind === 'course' ? getItemSource(item).lessons : 1;
+}
+
+// Сумма дополнительных услуг: за день, за человека или один раз
+function calculateOptionsSum(item) {
+    return extraOptions
+        .filter((option) => item.options.includes(option.key))
+        .reduce((sum, option) => {
+            if (option.per === 'day') {
+                return sum + option.price * getItemDays(item);
+            }
+
+            if (option.per === 'person') {
+                return sum + option.price * getItemPeople(item);
+            }
+
+            return sum + option.price;
+        }, 0);
+}
+
+function calculateItemTotal(item) {
+    return getItemUnitPrice(item) * item.qty + calculateOptionsSum(item);
+}
+
+// Сумма всех позиций: reduce складывает суммы позиций
+function calculateCartTotal(cart) {
+    return cart.reduce((sum, item) => sum + calculateItemTotal(item), 0);
+}
+
+function getOptionTitles(item) {
+    return extraOptions
+        .filter((option) => item.options.includes(option.key))
+        .map((option) => option.title.toLowerCase());
+}
+
+// Достаём корзину из хранилища. Берём только позиции, для которых есть запись в data.js,
+// и добавляем недостающие поля, потому что данные в localStorage можно изменить вручную.
 function getCart() {
-    const cart = readStorage(CART_KEY, []);
-
-    // Из хранилища берём только позиции, для которых есть курс в data.js
-    return cart.filter((item) => findProductById(products, item.id));
+    return readStorage(CART_KEY, [])
+        .map((item) => ({
+            kind: item.kind,
+            id: item.id,
+            qty: item.qty,
+            people: item.people || 1,
+            captain: Boolean(item.captain),
+            options: item.options || []
+        }))
+        .filter((item) => ['course', 'trip', 'rent'].includes(item.kind) && getItemSource(item));
 }
 
 function saveCart(cart) {
@@ -19,31 +141,41 @@ function saveCart(cart) {
     updateCartCount();
 }
 
-// Что показывать в строке корзины по позиции
-function getCartItemInfo(item) {
-    const product = findProductById(products, item.id);
-
-    return {
-        title: product.title,
-        typeName: 'Курс',
-        unitPrice: calculateFinalPrice(product.price, product.discountPercent),
-        maxQty: MAX_QTY
-    };
+function isSameItem(first, second) {
+    return first.kind === second.kind
+        && first.id === second.id
+        && first.captain === second.captain
+        && first.options.length === second.options.length
+        && first.options.every((key) => second.options.includes(key));
 }
 
-// Добавляет курс. Если курс уже есть, увеличивает количество. false - достигнут максимум.
-function addToCart(id) {
+// Добавляет запись. Если такая уже есть, увеличивает количество.
+// Возвращает false, если количество вышло бы за максимум.
+function addToCart(kind, id, details = {}) {
+    const newItem = {
+        kind: kind,
+        id: id,
+        qty: details.qty || 1,
+        people: details.people || 1,
+        captain: Boolean(details.captain),
+        options: details.options || []
+    };
     const cart = getCart();
-    const item = cart.find((cartItem) => cartItem.id === id);
+    const sameItem = cart.find((item) => isSameItem(item, newItem));
+    const maxQty = getItemMaxQty(newItem);
 
-    if (item) {
-        if (item.qty >= MAX_QTY) {
+    if (sameItem) {
+        if (sameItem.qty + newItem.qty > maxQty) {
             return false;
         }
 
-        item.qty += 1;
+        sameItem.qty += newItem.qty;
     } else {
-        cart.push({ kind: 'course', id: id, qty: 1 });
+        if (newItem.qty > maxQty) {
+            return false;
+        }
+
+        cart.push(newItem);
     }
 
     saveCart(cart);
@@ -51,27 +183,19 @@ function addToCart(id) {
     return true;
 }
 
-function changeCartQty(id, qty) {
+function changeCartQty(index, qty) {
     const cart = getCart();
-    const item = cart.find((cartItem) => cartItem.id === id);
 
-    item.qty = qty;
+    cart[index].qty = qty;
     saveCart(cart);
 }
 
-function removeFromCart(id) {
-    saveCart(getCart().filter((item) => item.id !== id));
+function removeFromCart(index) {
+    saveCart(getCart().filter((item, itemIndex) => itemIndex !== index));
 }
 
 function clearCart() {
     saveCart([]);
-}
-
-// Сумма корзины: цена с учётом скидки умножается на количество
-function calculateCartTotal(cart) {
-    return cart.reduce((sum, item) => {
-        return sum + getCartItemInfo(item).unitPrice * item.qty;
-    }, 0);
 }
 
 // Число записей в меню
@@ -88,38 +212,47 @@ const cartBody = document.querySelector('#cart-body');
 const cartContent = document.querySelector('#cart-content');
 const cartEmpty = document.querySelector('#cart-empty');
 const cartTotal = document.querySelector('#cart-total');
-const cartMessage = document.querySelector('#cart-message');
 
-function showCartMessage(text, isError) {
-    cartMessage.textContent = text;
-    cartMessage.classList.toggle('form__result--error', isError);
-}
-
-function createCartRow(item) {
-    const info = getCartItemInfo(item);
+function createCartRow(item, index) {
     const row = makeElement('tr');
-    const titleCell = makeElement('td', '', info.title);
-    const typeCell = makeElement('td', '', info.typeName);
+    const title = getItemTitle(item);
+    const titleCell = makeElement('td', '', title);
+    const typeCell = makeElement('td', '', getItemTypeName(item));
     const qtyCell = makeElement('td');
-    const priceCell = makeElement('td', '', formatPrice(info.unitPrice));
-    const sumCell = makeElement('td', '', formatPrice(info.unitPrice * item.qty));
+    const priceCell = makeElement('td', '', formatPrice(getItemUnitPrice(item)));
+    const sumCell = makeElement('td', '', formatPrice(calculateItemTotal(item)));
     const removeCell = makeElement('td', 'info-table__action');
 
-    row.dataset.id = String(item.id);
+    row.dataset.index = String(index);
+
+    // Под названием: дополнительные услуги и число человек при аренде
+    const details = [];
+
+    if (item.kind === 'rent') {
+        details.push(`человек: ${item.people}`);
+    }
+
+    if (item.options.length > 0) {
+        details.push(`дополнительно: ${getOptionTitles(item).join(', ')}`);
+    }
+
+    if (details.length > 0) {
+        titleCell.append(makeElement('br'), makeElement('span', 'muted', details.join(', ')));
+    }
 
     const qtyInput = makeElement('input', 'form__input');
     qtyInput.type = 'number';
     qtyInput.min = '1';
-    qtyInput.max = String(info.maxQty);
+    qtyInput.max = String(getItemMaxQty(item));
     qtyInput.value = String(item.qty);
-    qtyInput.id = `cart-qty-${item.id}`;
-    qtyInput.setAttribute('aria-label', `Количество человек: ${info.title}`);
-    qtyCell.append(qtyInput);
+    qtyInput.id = `cart-qty-${index}`;
+    qtyInput.setAttribute('aria-label', `Количество, ${getItemUnit(item)}: ${title}`);
+    qtyCell.append(qtyInput, ` ${getItemUnit(item)}`);
 
     const removeButton = makeElement('button', 'button button--secondary button--small', 'Удалить');
     removeButton.type = 'button';
-    removeButton.dataset.remove = String(item.id);
-    removeButton.setAttribute('aria-label', `Удалить из записей: ${info.title}`);
+    removeButton.dataset.remove = String(index);
+    removeButton.setAttribute('aria-label', `Удалить из записей: ${title}`);
     removeCell.append(removeButton);
 
     // Подписи столбцов для карточек на телефоне
@@ -139,8 +272,8 @@ function renderCart() {
     const cart = getCart();
 
     cartBody.textContent = '';
-    cart.forEach((item) => {
-        cartBody.append(createCartRow(item));
+    cart.forEach((item, index) => {
+        cartBody.append(createCartRow(item, index));
     });
 
     cartContent.hidden = cart.length === 0;
@@ -157,14 +290,14 @@ if (cartBody) {
             return;
         }
 
-        const id = Number(input.closest('tr').dataset.id);
+        const index = Number(input.closest('tr').dataset.index);
         const qty = Number(input.value);
+        const maxQty = getItemMaxQty(getCart()[index]);
 
-        if (!Number.isInteger(qty) || qty < 1 || qty > MAX_QTY) {
-            showCartMessage(`Количество должно быть от 1 до ${MAX_QTY}.`, true);
+        if (!Number.isInteger(qty) || qty < 1 || qty > maxQty) {
+            notify('error', `Количество должно быть от 1 до ${maxQty}.`);
         } else {
-            changeCartQty(id, qty);
-            showCartMessage('', false);
+            changeCartQty(index, qty);
         }
 
         renderCart();
@@ -179,22 +312,20 @@ if (cartBody) {
         }
 
         removeFromCart(Number(button.dataset.remove));
-        showCartMessage('Запись удалена.', false);
+        notify('info', 'Запись удалена из корзины.');
         renderCart();
     });
 
-    const clearButton = document.querySelector('[data-clear-cart]');
-
-    clearButton.addEventListener('click', () => {
+    document.querySelector('[data-clear-cart]').addEventListener('click', () => {
         clearCart();
-        showCartMessage('Записи очищены.', false);
+        notify('info', 'Корзина очищена.');
         renderCart();
     });
 
     renderCart();
 }
 
-// Кнопки "В мои записи" в карточках: обработчик на весь документ (делегирование),
+// Кнопки "В мои записи" в карточках и таблицах: обработчик на весь документ (делегирование),
 // потому что карточки создаются позже, чем загружается страница.
 document.addEventListener('click', (event) => {
     const button = event.target.closest('[data-action="add-to-cart"]');
@@ -203,15 +334,16 @@ document.addEventListener('click', (event) => {
         return;
     }
 
-    const added = addToCart(Number(button.dataset.productId));
-    const defaultText = button.dataset.text || button.textContent;
+    const kind = button.dataset.kind;
+    const id = Number(button.dataset.itemId);
+    const details = { captain: button.dataset.captain === 'true' };
+    const title = getItemTitle({ kind: kind, id: id, qty: 1, people: 1, captain: details.captain, options: [] });
 
-    button.dataset.text = defaultText;
-    button.textContent = added ? 'Добавлено' : `Максимум ${MAX_QTY}`;
-
-    setTimeout(() => {
-        button.textContent = defaultText;
-    }, 1500);
+    if (addToCart(kind, id, details)) {
+        notify('success', `Добавлено в мои записи: ${title}.`);
+    } else {
+        notify('warning', `Больше добавить нельзя: ${title}. Максимум для этой записи уже выбран.`);
+    }
 });
 
 updateCartCount();
