@@ -1,50 +1,6 @@
-// Общая инициализация страниц.
-// Функции работы с курсами лежат в utils.js, каталог выводит catalog.js.
-console.log('Файл main.js подключён');
-
-// Блок "Проверка JavaScript" есть только на главной, на других страницах
-// элементов нет, поэтому сначала проверяем, что они найдены.
-const messageElement = document.querySelector('.js-message');
-const productOutputElement = document.querySelector('.product-output');
-
-if (messageElement) {
-    messageElement.textContent = 'Массив курсов и функции обработки данных подключены.';
-}
-
-if (productOutputElement) {
-    productOutputElement.textContent = [
-        `Всего курсов: ${products.length}`,
-        `Курсов с открытым набором: ${countAvailableProducts(products)}`,
-        `Средняя цена: ${formatPrice(calculateAveragePrice(products))}`,
-        `Результатов поиска "шкипер": ${searchProducts(products, 'шкипер').length}`
-    ].join('\n');
-}
-
-// Модальное окно быстрой заявки
-const modal = document.querySelector('.modal');
-const openButtons = document.querySelectorAll('[data-open-modal]');
-const closeButtons = document.querySelectorAll('[data-close-modal]');
-
-openButtons.forEach(function (button) {
-    button.addEventListener('click', function () {
-        modal.showModal();
-    });
-});
-
-closeButtons.forEach(function (button) {
-    button.addEventListener('click', function () {
-        modal.close();
-    });
-});
-
-// Клик по затемнению вокруг окна тоже закрывает его
-if (modal) {
-    modal.addEventListener('click', function (event) {
-        if (event.target === modal) {
-            modal.close();
-        }
-    });
-}
+// Общая инициализация страниц: меню на телефоне и кнопка фильтров каталога.
+// Файл подключён на всех страницах последним. Остальной код лежит в файлах
+// data.js, utils.js, catalog.js, cart.js, validation.js и modal.js.
 
 // Меню на телефоне: кнопка "Меню" открывает и закрывает список пунктов.
 // aria-expanded сообщает программам чтения с экрана, открыто ли меню.
@@ -56,32 +12,35 @@ function setMenu(isOpen) {
     menuButton.setAttribute('aria-expanded', isOpen);
 }
 
-menuButton.addEventListener('click', function () {
-    setMenu(!siteNav.classList.contains('site-nav--open'));
-});
-
-// Escape закрывает меню, фокус возвращается на кнопку
-document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape' && siteNav.classList.contains('site-nav--open')) {
-        setMenu(false);
-        menuButton.focus();
-    }
-});
-
-// После выбора пункта меню закрывается (нужно для ссылок на разделы той же страницы)
-siteNav.querySelectorAll('a').forEach(function (link) {
-    link.addEventListener('click', function () {
-        setMenu(false);
+if (menuButton && siteNav) {
+    menuButton.addEventListener('click', () => {
+        setMenu(!siteNav.classList.contains('site-nav--open'));
     });
-});
 
-// Фильтры каталога на телефоне
+    // Escape закрывает меню, фокус возвращается на кнопку
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && siteNav.classList.contains('site-nav--open')) {
+            setMenu(false);
+            menuButton.focus();
+        }
+    });
+
+    // После выбора пункта меню закрывается (нужно для ссылок на разделы той же страницы)
+    siteNav.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+            setMenu(false);
+        });
+    });
+}
+
+// Фильтры каталога на телефоне: кнопка "Поиск и фильтры" раскрывает форму
 const filtersBlock = document.querySelector('.catalog-filters');
 const filtersButton = document.querySelector('.catalog-filters__toggle');
 
-if (filtersButton) {
-    filtersButton.addEventListener('click', function () {
+if (filtersBlock && filtersButton) {
+    filtersButton.addEventListener('click', () => {
         const isOpen = filtersBlock.classList.toggle('catalog-filters--open');
+
         filtersButton.setAttribute('aria-expanded', isOpen);
     });
 }

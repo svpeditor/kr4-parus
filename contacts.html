@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="css/responsive.css">
     <script src="js/data.js" defer></script>
     <script src="js/utils.js" defer></script>
+    <script src="js/cart.js" defer></script>
+    <script src="js/validation.js" defer></script>
     <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -28,6 +30,7 @@
                     <li class="site-nav__item"><a class="site-nav__link" href="fleet.html">Флот</a></li>
                     <li class="site-nav__item"><a class="site-nav__link" href="schedule.html">Расписание</a></li>
                     <li class="site-nav__item"><a class="site-nav__link" href="order.html">Заявка</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link" href="account.html#cart">Мои записи <span data-cart-count>(0)</span></a></li>
                     <li class="site-nav__item"><a class="site-nav__link" href="account.html">Личный кабинет</a></li>
                     <li class="site-nav__item"><a class="site-nav__link site-nav__link--active" href="contacts.html" aria-current="page">Контакты</a></li>
                 </ul>
@@ -81,7 +84,7 @@
 
         <section class="section" id="question">
             <h2 class="section__title">Вопрос инструктору</h2>
-            <form class="form" id="question-form" action="contacts.html" method="get">
+            <form class="form" id="question-form" novalidate>
                 <p class="form__note">Поля, отмеченные звёздочкой, обязательны для заполнения.</p>
                 <div class="form__row">
                     <div class="form__group">

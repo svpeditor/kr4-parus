@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="css/responsive.css">
     <script src="js/data.js" defer></script>
     <script src="js/utils.js" defer></script>
+    <script src="js/cart.js" defer></script>
+    <script src="js/catalog.js" defer></script>
+    <script src="js/validation.js" defer></script>
+    <script src="js/modal.js" defer></script>
     <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -28,6 +32,7 @@
                     <li class="site-nav__item"><a class="site-nav__link" href="fleet.html">Флот</a></li>
                     <li class="site-nav__item"><a class="site-nav__link" href="schedule.html">Расписание</a></li>
                     <li class="site-nav__item"><a class="site-nav__link" href="order.html">Заявка</a></li>
+                    <li class="site-nav__item"><a class="site-nav__link" href="account.html#cart">Мои записи <span data-cart-count>(0)</span></a></li>
                     <li class="site-nav__item"><a class="site-nav__link" href="account.html">Личный кабинет</a></li>
                     <li class="site-nav__item"><a class="site-nav__link" href="contacts.html">Контакты</a></li>
                 </ul>
@@ -87,68 +92,7 @@
                 <h2 class="section__title">Популярные курсы</h2>
                 <a href="courses.html">Все курсы</a>
             </div>
-            <div class="products-grid">
-                <article class="product-card" data-id="1" data-category="beginner" data-price="12900" data-available="true">
-                    <picture class="product-card__picture">
-                        <source type="image/webp" srcset="images/small-sloop-480.webp 480w, images/small-sloop.webp 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw">
-                        <img class="product-card__image" src="images/small-sloop.jpg" srcset="images/small-sloop-480.jpg 480w, images/small-sloop.jpg 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw" width="800" height="600" alt="Небольшая белая яхта на воде у берега" loading="lazy">
-                    </picture>
-                    <div class="product-card__body">
-                        <p class="product-card__category">Для новичков</p>
-                        <h3 class="product-card__title"><a class="product-card__link" href="course.html?id=1">Азы парусного спорта</a></h3>
-                        <p class="product-card__description">Устройство яхты, повороты, работа с парусами и безопасность на воде. Практика на учебной яхте.</p>
-                        <ul class="product-card__meta">
-                            <li>4 занятия по 4 часа</li>
-                            <li><span class="badge badge--ok">Набор открыт</span></li>
-                        </ul>
-                        <p class="product-card__price">12 900 руб.</p>
-                        <div class="product-card__actions">
-                            <a class="button button--secondary button--small" href="course.html?id=1">Подробнее</a>
-                            <a class="button button--primary button--small" href="order.html?course=1">Записаться</a>
-                        </div>
-                    </div>
-                </article>
-                <article class="product-card" data-id="4" data-category="skipper" data-price="36000" data-available="true">
-                    <picture class="product-card__picture">
-                        <source type="image/webp" srcset="images/cruiser-a-480.webp 480w, images/cruiser-a.webp 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw">
-                        <img class="product-card__image" src="images/cruiser-a.jpg" srcset="images/cruiser-a-480.jpg 480w, images/cruiser-a.jpg 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw" width="800" height="600" alt="Килевая яхта под парусами на озере" loading="lazy">
-                    </picture>
-                    <div class="product-card__body">
-                        <p class="product-card__category">Шкипер</p>
-                        <h3 class="product-card__title"><a class="product-card__link" href="course.html?id=4">Шкипер-прибрежник</a></h3>
-                        <p class="product-card__description">Управление яхтой в прибрежной зоне, расчёт курса, швартовка. В конце теоретический и практический экзамен.</p>
-                        <ul class="product-card__meta">
-                            <li>8 занятий и экзамен</li>
-                            <li><span class="badge badge--ok">Набор открыт</span></li>
-                        </ul>
-                        <p class="product-card__price">36 000 руб.</p>
-                        <div class="product-card__actions">
-                            <a class="button button--secondary button--small" href="course.html?id=4">Подробнее</a>
-                            <a class="button button--primary button--small" href="order.html?course=4">Записаться</a>
-                        </div>
-                    </div>
-                </article>
-                <article class="product-card" data-id="7" data-category="kids" data-price="9500" data-available="true">
-                    <picture class="product-card__picture">
-                        <source type="image/webp" srcset="images/optimist-beach-480.webp 480w, images/optimist-beach.webp 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw">
-                        <img class="product-card__image" src="images/optimist-beach.jpg" srcset="images/optimist-beach-480.jpg 480w, images/optimist-beach.jpg 800w" sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw" width="800" height="600" alt="Детские лодки с разноцветными парусами на песчаном берегу" loading="lazy">
-                    </picture>
-                    <div class="product-card__body">
-                        <p class="product-card__category">Детская группа</p>
-                        <h3 class="product-card__title"><a class="product-card__link" href="course.html?id=7">Детская группа 7-10 лет</a></h3>
-                        <p class="product-card__description">Занятия на детских лодках Оптимист в спасательных жилетах. В группе до 8 детей, рядом катер инструктора.</p>
-                        <ul class="product-card__meta">
-                            <li>8 занятий по 2 часа</li>
-                            <li><span class="badge badge--ok">Набор открыт</span></li>
-                        </ul>
-                        <p class="product-card__price">9 500 руб.</p>
-                        <div class="product-card__actions">
-                            <a class="button button--secondary button--small" href="course.html?id=7">Подробнее</a>
-                            <a class="button button--primary button--small" href="order.html?course=7">Записаться</a>
-                        </div>
-                    </div>
-                </article>
-            </div>
+            <div class="products-grid" data-popular-courses></div>
         </section>
 
         <section class="section" id="trips">
@@ -222,18 +166,12 @@
             <button class="button button--primary" type="button" data-open-modal>Оставить заявку</button>
         </section>
 
-        <section class="section js-check" aria-labelledby="js-check-title">
-            <h2 id="js-check-title">Проверка JavaScript</h2>
-            <p class="js-message">JavaScript пока не выполнился.</p>
-            <pre class="product-output"></pre>
-        </section>
-
         <dialog class="modal" id="quick-dialog" aria-labelledby="quick-dialog-title">
             <div class="modal__head">
                 <h2 class="modal__title" id="quick-dialog-title">Быстрая заявка</h2>
                 <button class="modal__close" type="button" data-close-modal aria-label="Закрыть окно"><span aria-hidden="true">&times;</span></button>
             </div>
-            <form class="form" id="quick-form" action="order.html" method="get">
+            <form class="form" id="quick-form" novalidate>
                 <p class="form__note">Поля, отмеченные звёздочкой, обязательны для заполнения.</p>
                 <div class="form__group">
                     <label class="form__label" for="quick-name">Имя <span class="form__required" aria-hidden="true">*</span></label>
@@ -259,6 +197,7 @@
                     <button class="button button--primary" type="submit">Отправить</button>
                     <button class="button button--secondary" type="button" data-close-modal>Закрыть</button>
                 </div>
+                <div class="form__result" id="quick-result" aria-live="polite"></div>
             </form>
         </dialog>
     </main>

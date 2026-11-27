@@ -151,3 +151,19 @@ function makeElement(tag, className, text) {
 
     return element;
 }
+
+// Чтение и запись в localStorage. Значение хранится как JSON-строка.
+// Если ключа ещё нет, getItem вернёт null, и мы возвращаем запасное значение.
+function readStorage(key, fallback) {
+    const saved = localStorage.getItem(key);
+
+    if (saved === null) {
+        return fallback;
+    }
+
+    return JSON.parse(saved);
+}
+
+function writeStorage(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+}
