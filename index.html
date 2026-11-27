@@ -8,6 +8,7 @@
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <script src="js/data.js" defer></script>
     <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -218,6 +219,12 @@
             <h2 class="section__title">Быстрая заявка</h2>
             <p class="section__text">Оставьте имя и телефон, мы перезвоним и подберём курс или выход. Полная заявка с оплатой лежит на отдельной странице.</p>
             <button class="button button--primary" type="button" data-open-modal>Оставить заявку</button>
+        </section>
+
+        <section class="section js-check" aria-labelledby="js-check-title">
+            <h2 id="js-check-title">Проверка JavaScript</h2>
+            <p class="js-message">JavaScript пока не выполнился.</p>
+            <pre class="product-output"></pre>
         </section>
 
         <dialog class="modal" id="quick-dialog" aria-labelledby="quick-dialog-title">

@@ -712,3 +712,18 @@ display: none не используем, иначе до неё нельзя д�
     border-color: var(--color-danger);
     border-width: 2px;
 }
+
+/* ===============================
+13. Проверка JavaScript
+=============================== */
+
+/* Блок для первой проверки скриптов: сюда main.js выводит текст через textContent */
+.product-output {
+    margin: 0;
+    padding: var(--space-md);
+    overflow-x: auto;
+    white-space: pre-wrap;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
